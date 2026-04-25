@@ -150,8 +150,10 @@ tailwind.config = {
 
 | Integrante | Área |
 |---|---|
+| **Josue** | HTML — Validaciones, interacción dinámica y conexión con HTML |
+| **Hander** | MariaDB — Estructura y Base de Datos (Laragon) |
 | **Kleiber** | HTML — Estructura y contenido de las páginas |
-| **[Tu nombre]** | JavaScript — Validaciones, interacción dinámica y conexión con HTML |
+| **Alba** | CSS — Diseño y estilo de la Web |
 
 ---
 
