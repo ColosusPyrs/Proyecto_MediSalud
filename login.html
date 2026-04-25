@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión – MediSalud</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
+            accent:   '#4CAF50',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen font-sans">
+
+  <!-- ===== HEADER ===== -->
+  <header class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center py-3">
+        <a href="inicio.html">
+          <img src="img/Logo .png" alt="MediSalud" class="h-14 md:h-20 object-contain">
+        </a>
+        <div class="hidden md:flex gap-3">
+          <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full bg-blue-50">Iniciar sesión</a>
+          <a href="register.html" class="text-sm font-semibold text-white bg-primary hover:bg-primary-dark px-4 py-1.5 rounded-full transition">Registrarse</a>
+        </div>
+        <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition" aria-label="Menú">
+          <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="hidden md:flex justify-center gap-8 py-3 border-t border-gray-100">
+        <a href="inicio.html"    class="font-medium text-gray-600 hover:text-primary transition">Inicio</a>
+        <a href="servicios.html" class="font-medium text-gray-600 hover:text-primary transition">Servicios</a>
+        <a href="planes.html"    class="font-medium text-gray-600 hover:text-primary transition">Planes y Programas</a>
+        <a href="nosotros.html"  class="font-medium text-gray-600 hover:text-primary transition">Nosotros</a>
+        <a href="contacto.html"  class="font-medium text-gray-600 hover:text-primary transition">Contacto</a>
+      </nav>
+      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-3 flex flex-col gap-1">
+        <a href="inicio.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Inicio</a>
+        <a href="servicios.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Servicios</a>
+        <a href="planes.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Planes y Programas</a>
+        <a href="nosotros.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Nosotros</a>
+        <a href="contacto.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Contacto</a>
+        <div class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
+          <a href="login.html"    class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl bg-blue-50">Iniciar sesión</a>
+          <a href="register.html" class="text-center font-semibold text-white bg-primary hover:bg-primary-dark py-2.5 rounded-xl transition">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== FORMULARIO LOGIN ===== -->
+  <main class="flex items-center justify-center min-h-[calc(100vh-120px)] px-4 py-16">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-10">
+
+      <!-- Icono y título -->
+      <div class="flex flex-col items-center mb-8">
+        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-primary-dark">Iniciar Sesión</h2>
+        <p class="text-gray-400 text-sm mt-1">Accede a tu cuenta de MediSalud</p>
+      </div>
+
+      <!-- Campos -->
+      <div class="flex flex-col gap-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-600 mb-1">Usuario</label>
+          <input type="text" id="user" placeholder="Ingresa tu usuario"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-600 mb-1">Contraseña</label>
+          <input type="password" id="pass" placeholder="Ingresa tu contraseña"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
+        </div>
+
+        <button type="button" onclick="iniciarSesion()"
+          class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition shadow-md mt-2">
+          Iniciar sesión
+        </button>
+
+        <div id="msg-login" class="mensaje" style="display:none;"></div>
+      </div>
+
+      <!-- Enlace registro -->
+      <p class="text-center text-sm text-gray-500 mt-6">
+        ¿No tienes cuenta?
+        <a href="register.html" class="text-primary font-semibold hover:underline">Regístrate aquí</a>
+      </p>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-primary-dark text-white">
+    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-blue-200">
+      <span>© 2026 MediSalud. Todos los derechos reservados.</span>
+      <div class="flex gap-5">
+        <a href="privacidad.html" class="hover:text-white transition">Políticas de privacidad</a>
+        <a href="terminos.html"   class="hover:text-white transition">Términos de uso</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

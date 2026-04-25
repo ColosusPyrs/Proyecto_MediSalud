@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planes y Programas – MediSalud</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
+            accent:   '#4CAF50',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+  <!-- ===== HEADER ===== -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center py-3">
+        <a href="inicio.html">
+          <img src="img/Logo .png" alt="MediSalud" class="h-14 md:h-20 object-contain">
+        </a>
+        <div class="hidden md:flex gap-3">
+          <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
+          <a href="register.html" class="text-sm font-semibold text-white bg-primary hover:bg-primary-dark px-4 py-1.5 rounded-full transition">Registrarse</a>
+        </div>
+        <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition" aria-label="Menú">
+          <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="hidden md:flex justify-center gap-8 py-3 border-t border-gray-100">
+        <a href="inicio.html"    class="font-medium text-gray-600 hover:text-primary transition">Inicio</a>
+        <a href="servicios.html" class="font-medium text-gray-600 hover:text-primary transition">Servicios</a>
+        <a href="planes.html"    class="font-medium text-primary border-b-2 border-primary pb-0.5">Planes y Programas</a>
+        <a href="nosotros.html"  class="font-medium text-gray-600 hover:text-primary transition">Nosotros</a>
+        <a href="contacto.html"  class="font-medium text-gray-600 hover:text-primary transition">Contacto</a>
+      </nav>
+      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-3 flex flex-col gap-1">
+        <a href="inicio.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Inicio</a>
+        <a href="servicios.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Servicios</a>
+        <a href="planes.html"    class="px-4 py-2.5 text-primary font-semibold bg-blue-50 rounded-xl">Planes y Programas</a>
+        <a href="nosotros.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Nosotros</a>
+        <a href="contacto.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Contacto</a>
+        <div class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
+          <a href="login.html"    class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl hover:bg-blue-50 transition">Iniciar sesión</a>
+          <a href="register.html" class="text-center font-semibold text-white bg-primary hover:bg-primary-dark py-2.5 rounded-xl transition">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<!-- Aviso de redirección -->
+<div id="aviso-redireccion" 
+     class="w-full bg-red-600 text-white text-center py-3 font-bold hidden">
+  Debe iniciar sesión para elegir un plan. Redirigiendo...
+</div>
+
+  <!-- ===== HERO PLANES ===== -->
+  <section class="bg-gradient-to-r from-primary-dark to-primary py-10 text-white text-center px-6">
+    <h1 class="text-4xl font-bold mb-3">Planes Disponibles</h1>
+    <p class="text-blue-200 text-lg max-w-xl mx-auto">Elige el plan que mejor se adapte a tus necesidades y las de tu familia.</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-6 py-8">
+
+  <!-- Mensaje de confirmación -->
+  <div id="msg-plan" class="mensaje mb-4 max-w-xl mx-auto" style="display:none;"></div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+    <!-- aquí van las tarjetas -->
+  </div>
+</section>
+
+  <!-- ===== TARJETAS DE PLANES ===== -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+      <!-- Plan Básico -->
+      <div class="bg-white rounded-3xl shadow-lg p-8 flex flex-col border border-gray-100 hover:shadow-xl transition">
+        <div class="text-center mb-6">
+          <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-primary-dark">Plan Básico</h2>
+          <div class="mt-3">
+            <span class="text-4xl font-extrabold text-primary">RD$ 3,000</span>
+            <span class="text-gray-400 text-sm"> / mes</span>
+          </div>
+        </div>
+        <ul class="flex flex-col gap-3 mb-8 flex-1">
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Consultas médicas</li>
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Emergencias</li>
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Descuento en medicamentos</li>
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Laboratorios básicos</li>
+        </ul>
+        <button type="button"
+          onclick="elegirPlan('Plan Básico', 'RD$ 3,000 / mes', 'Consultas médicas · Emergencias · Descuento en medicamentos · Laboratorios básicos')"
+          class="w-full border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-3 rounded-xl transition">
+          Elegir Plan
+        </button>
+      </div>
+
+      <!-- Plan Premium (destacado) -->
+      <div class="bg-primary rounded-3xl shadow-2xl p-8 flex flex-col text-white relative md:scale-105">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-white text-xs font-bold px-4 py-1 rounded-full shadow">
+          MÁS POPULAR
+        </div>
+        <div class="text-center mb-6">
+          <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold">Plan Premium</h2>
+          <div class="mt-3">
+            <span class="text-4xl font-extrabold">RD$ 5,500</span>
+            <span class="text-blue-200 text-sm"> / mes</span>
+          </div>
+        </div>
+        <ul class="flex flex-col gap-3 mb-8 flex-1">
+          <li class="flex items-center gap-2 text-blue-100 text-sm"><span class="text-white font-bold">✓</span> Consultas médicas ilimitadas</li>
+          <li class="flex items-center gap-2 text-blue-100 text-sm"><span class="text-white font-bold">✓</span> Hospitalización</li>
+          <li class="flex items-center gap-2 text-blue-100 text-sm"><span class="text-white font-bold">✓</span> Medicamentos incluidos</li>
+          <li class="flex items-center gap-2 text-blue-100 text-sm"><span class="text-white font-bold">✓</span> Laboratorios completos</li>
+          <li class="flex items-center gap-2 text-blue-100 text-sm"><span class="text-white font-bold">✓</span> Especialistas</li>
+        </ul>
+        <button type="button"
+          onclick="elegirPlan('Plan Premium', 'RD$ 5,500 / mes', 'Consultas médicas ilimitadas · Hospitalización · Medicamentos incluidos · Laboratorios completos · Especialistas')"
+          class="w-full bg-white text-primary hover:bg-blue-50 font-bold py-3 rounded-xl transition shadow-md">
+          Elegir Plan
+        </button>
+      </div>
+
+      <!-- Plan Familiar -->
+      <div class="bg-white rounded-3xl shadow-lg p-8 flex flex-col border border-gray-100 hover:shadow-xl transition">
+        <div class="text-center mb-6">
+          <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-primary-dark">Plan Familiar</h2>
+          <div class="mt-3">
+            <span class="text-4xl font-extrabold text-primary">RD$ 4,000</span>
+            <span class="text-gray-400 text-sm"> / mes</span>
+          </div>
+        </div>
+        <ul class="flex flex-col gap-3 mb-8 flex-1">
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Cobertura para 4 personas</li>
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Consultas médicas</li>
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Emergencias</li>
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Hospitalización</li>
+          <li class="flex items-center gap-2 text-gray-600 text-sm"><span class="text-accent font-bold">✓</span> Medicamentos</li>
+        </ul>
+        <button type="button"
+          onclick="elegirPlan('Plan Familiar', 'RD$ 4,000 / mes', 'Cobertura para 4 personas · Consultas médicas · Emergencias · Hospitalización · Medicamentos')"
+          class="w-full border-2 border-accent text-accent hover:bg-accent hover:text-white font-bold py-3 rounded-xl transition">
+          Elegir Plan
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== MODAL: CONFIRMAR PLAN ===== -->
+  <div id="modal-plan" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+       background:rgba(0,0,0,0.55); justify-content:center; align-items:center; z-index:1000;">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 p-10 text-center">
+      <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <h2 id="modal-plan-nombre" class="text-2xl font-bold text-primary-dark mb-2"></h2>
+      <p  id="modal-plan-precio"  class="text-3xl font-extrabold text-primary mb-4"></p>
+      <p  id="modal-plan-beneficios" class="text-gray-500 text-sm mb-8 leading-relaxed"></p>
+      <div class="flex gap-3">
+        <button type="button" onclick="cerrarModalPlan()"
+          class="flex-1 border-2 border-gray-300 text-gray-600 hover:bg-gray-50 font-semibold py-3 rounded-xl transition">
+          Cancelar
+        </button>
+        <button type="button" onclick="confirmarPlan()"
+          class="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition shadow-md">
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-primary-dark text-white mt-8">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <img src="img/Logo .png" alt="MediSalud" class="h-12 mb-3">
+        <p class="text-blue-200 text-sm">Comprometidos con tu salud y bienestar.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-3">Navegación</h3>
+        <ul class="space-y-2 text-blue-200 text-sm">
+          <li><a href="inicio.html"    class="hover:text-white transition">Inicio</a></li>
+          <li><a href="servicios.html" class="hover:text-white transition">Servicios</a></li>
+          <li><a href="nosotros.html"  class="hover:text-white transition">Nosotros</a></li>
+          <li><a href="contacto.html"  class="hover:text-white transition">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-3">Legal</h3>
+        <ul class="space-y-2 text-blue-200 text-sm">
+          <li><a href="privacidad.html" class="hover:text-white transition">Políticas de privacidad</a></li>
+          <li><a href="terminos.html"   class="hover:text-white transition">Términos de uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-blue-800 text-center py-4 text-blue-300 text-sm">
+      © 2026 MediSalud. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

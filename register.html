@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrarse – MediSalud</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
+            accent:   '#4CAF50',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen font-sans">
+
+  <!-- ===== HEADER ===== -->
+  <header class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center py-3">
+        <a href="inicio.html">
+          <img src="img/Logo .png" alt="MediSalud" class="h-14 md:h-20 object-contain">
+        </a>
+        <div class="hidden md:flex gap-3">
+          <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
+          <a href="register.html" class="text-sm font-semibold text-white bg-primary px-4 py-1.5 rounded-full">Registrarse</a>
+        </div>
+        <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition" aria-label="Menú">
+          <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="hidden md:flex justify-center gap-8 py-3 border-t border-gray-100">
+        <a href="inicio.html"    class="font-medium text-gray-600 hover:text-primary transition">Inicio</a>
+        <a href="servicios.html" class="font-medium text-gray-600 hover:text-primary transition">Servicios</a>
+        <a href="planes.html"    class="font-medium text-gray-600 hover:text-primary transition">Planes y Programas</a>
+        <a href="nosotros.html"  class="font-medium text-gray-600 hover:text-primary transition">Nosotros</a>
+        <a href="contacto.html"  class="font-medium text-gray-600 hover:text-primary transition">Contacto</a>
+      </nav>
+      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-3 flex flex-col gap-1">
+        <a href="inicio.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Inicio</a>
+        <a href="servicios.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Servicios</a>
+        <a href="planes.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Planes y Programas</a>
+        <a href="nosotros.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Nosotros</a>
+        <a href="contacto.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Contacto</a>
+        <div class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
+          <a href="login.html"    class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl hover:bg-blue-50 transition">Iniciar sesión</a>
+          <a href="register.html" class="text-center font-semibold text-white bg-primary py-2.5 rounded-xl">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== FORMULARIO REGISTRO ===== -->
+  <main class="flex items-center justify-center px-4 py-16">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-10">
+
+      <!-- Icono y título -->
+      <div class="flex flex-col items-center mb-8">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-primary-dark">Crear Cuenta</h2>
+        <p class="text-gray-400 text-sm mt-1">Únete a MediSalud y protege tu salud</p>
+      </div>
+
+      <!-- Campos -->
+      <form action="conexionBD/registrarAfiliado.php" method="POST" enctype="multipart/form-data" class="flex flex-col gap-4">
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-semibold text-gray-600 mb-1">Nombre</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre"
+        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-gray-600 mb-1">Apellido</label>
+      <input type="text" id="apellido" name="apellido" placeholder="Tu apellido"
+        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-sm font-semibold text-gray-600 mb-1">Cédula</label>
+    <input type="text" id="cedula" name="cedula" placeholder="001-1234567-8"
+      class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-semibold text-gray-600 mb-1">Usuario</label>
+    <input type="text" id="usuario" name="usuario" placeholder="Elige un nombre de usuario"
+      class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-semibold text-gray-600 mb-1">Contraseña</label>
+    <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres"
+      class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
+  </div>
+
+  <button type="submit"
+    class="w-full bg-accent hover:bg-green-600 text-white font-bold py-3 rounded-xl transition shadow-md mt-2">
+    Crear cuenta
+  </button>
+
+  <!-- Enlace login -->
+      <p class="text-center text-sm text-gray-500 mt-6">
+        ¿Ya tienes cuenta?
+        <a href="login.html" class="text-primary font-semibold hover:underline">Inicia sesión aquí</a>
+      </p>
+
+</form>
+
+        <div id="msg-registro" class="mensaje" style="display:none;"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-primary-dark text-white">
+    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-blue-200">
+      <span>© 2026 MediSalud. Todos los derechos reservados.</span>
+      <div class="flex gap-5">
+        <a href="privacidad.html" class="hover:text-white transition">Políticas de privacidad</a>
+        <a href="terminos.html"   class="hover:text-white transition">Términos de uso</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
