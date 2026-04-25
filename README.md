@@ -1,11 +1,11 @@
 # MediSalud — Sistema de Seguro de Salud
 
-Sitio web estático para un sistema de seguro de salud desarrollado como proyecto académico grupal.
+Sitio web estático para un sistema de seguro de salud (ARS) desarrollado como proyecto académico grupal.
 Diseñado con **Tailwind CSS** e interactividad implementada en **JavaScript vanilla**.
 
 ---
 
-## Estructura del proyecto
+## Estructura del proyecto (mapa de carpetas y archivos)
 
 ```
 SistemaSeguroSalud/
@@ -139,7 +139,7 @@ tailwind.config = {
 | Tecnología | Uso |
 |---|---|
 | HTML5 | Estructura de todas las páginas |
-| Tailwind CSS (CDN) | Diseño visual y responsive |
+| Tailwind CSS (CDN) | Diseño visual y responsivo |
 | JavaScript (vanilla) | Validaciones, modales e interactividad |
 | localStorage | Persistencia de usuarios y sesión |
 | CSS3 | Estilos de mensajes de validación JS |
@@ -150,8 +150,10 @@ tailwind.config = {
 
 | Integrante | Área |
 |---|---|
-| **Kleiber** | HTML — Estructura y contenido de las páginas |
-| **[Tu nombre]** | JavaScript — Validaciones, interacción dinámica y conexión con HTML |
+| **Josue (líder)** | HTML, CSS, JS, PHP — Validaciones, interacción dinámica, conexión con HTML a DB, asistencia y supervisión de todo el equipo y proyecto |
+| **Hander (colíder)** | MariaDB — Estructura y base de datos |
+| **Kleiber** | HTML, JS — Estructura y contenido de las páginas |
+| **Alba** | CSS, JS, CSS — Diseño responsivo y estilo de la Web |
 
 ---
 
@@ -171,3 +173,4 @@ tailwind.config = {
 - Los datos de registro se guardan en el `localStorage` del navegador. Al limpiar el navegador se pierden.
 - Los formularios de contacto no envían emails reales; muestran confirmación visual únicamente.
 - Las imágenes deben estar en la carpeta `img/` con los nombres: `Logo .png`, `inicio.png`, `nosotros.png`.
+- La BD aún no ha sido implementada, intentaremos implementarla prontamente (Esto puede cambiar, ya sea BD no implementada por falta de tiempo o BD implementada).
