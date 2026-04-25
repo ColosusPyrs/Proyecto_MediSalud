@@ -373,4 +373,30 @@
   </footer>
 
 </body>
+  <script>
+/* --------------------------------------------------------------
+   toggleMenu()
+   • Cuando se pulsa #icon‑menu → quita la clase "hidden" y muestra el mobile‑menu.
+   • Cuando se pulsa #icon‑close → vuelve a poner la clase "hidden".
+-------------------------------------------------------------- */
+function toggleMenu() {
+    const mobile = document.getElementById('mobile-menu');
+    if (!mobile) return;                     // seguridad
+
+    // --- Abrir -------------------------------------------------
+    mobile.classList.remove('hidden');
+
+    // --- Cerrar solo con el botón X ---------------------------
+    const closeBtn = document.getElementById('icon-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            mobile.classList.add('hidden');
+        });
+    }
+
+    // Si en algún momento necesitas cerrar también al hacer click fuera:
+    // (pero no lo hacemos ahora)
+}
+</script>
+
 </html>
