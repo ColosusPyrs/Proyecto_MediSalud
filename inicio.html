@@ -16,6 +16,22 @@
         }
       }
     }
+
+    // Cerrar si hacen click fuera del menú
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.querySelector('button[onclick="toggleMenu()"]');
+
+    if (!menu.contains(e.target) && !button.contains(e.target)) {
+        if (!menu.classList.contains('hidden')) {
+            toggleMenu();
+        }
+    }
+});
+
+  // Cerrar el menú al hacer click en un link
+  const links = document.querySelectorAll('#mobile-menu a');
+    
   </script>
   <link rel="stylesheet" href="style.css">
 </head>

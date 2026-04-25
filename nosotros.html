@@ -371,32 +371,49 @@
       © 2026 MediSalud. Todos los derechos reservados.
     </div>
   </footer>
-
-</body>
   <script>
-/* --------------------------------------------------------------
-   toggleMenu()
-   • Cuando se pulsa #icon‑menu → quita la clase "hidden" y muestra el mobile‑menu.
-   • Cuando se pulsa #icon‑close → vuelve a poner la clase "hidden".
--------------------------------------------------------------- */
-function toggleMenu() {
+    function toggleMenu() {
     const mobile = document.getElementById('mobile-menu');
-    if (!mobile) return;                     // seguridad
+    const iconMenu = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
 
-    // --- Abrir -------------------------------------------------
-    mobile.classList.remove('hidden');
+    if (!mobile || !iconMenu || !iconClose) return;
 
-    // --- Cerrar solo con el botón X ---------------------------
-    const closeBtn = document.getElementById('icon-close');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            mobile.classList.add('hidden');
-        });
+    const isHidden = mobile.classList.contains('hidden');
+
+    if (isHidden) {
+        // Abrir menú
+        mobile.classList.remove('hidden');
+        iconMenu.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+    } else {
+        // Cerrar menú
+        mobile.classList.add('hidden');
+        iconMenu.classList.remove('hidden');
+        iconClose.classList.add('hidden');
     }
-
-    // Si en algún momento necesitas cerrar también al hacer click fuera:
-    // (pero no lo hacemos ahora)
 }
-</script>
 
+// Cerrar si hacen click fuera del menú
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.querySelector('button[onclick="toggleMenu()"]');
+
+    if (!menu.contains(e.target) && !button.contains(e.target)) {
+        if (!menu.classList.contains('hidden')) {
+            toggleMenu();
+        }
+    }
+});
+
+  // Cerrar el menú al hacer click en un link
+  const links = document.querySelectorAll('#mobile-menu a');
+
+links.forEach(link => {
+    link.addEventListener('click', () => {
+        toggleMenu();
+    });
+});
+  </script>
+</body>
 </html>
