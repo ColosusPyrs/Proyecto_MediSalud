@@ -17,26 +17,23 @@
       }
     }
 
-    // Cerrar si hacen click fuera del menú
-document.addEventListener('click', (e) => {
-    const menu = document.getElementById('mobile-menu');
-    const button = document.querySelector('button[onclick="toggleMenu()"]');
+    document.addEventListener('click', (e) => {
+        const menu = document.getElementById('mobile-menu');
+        const button = document.querySelector('button[onclick="toggleMenu()"]');
 
-    if (!menu.contains(e.target) && !button.contains(e.target)) {
-        if (!menu.classList.contains('hidden')) {
-            toggleMenu();
+        if (menu && button && !menu.contains(e.target) && !button.contains(e.target)) {
+            if (!menu.classList.contains('hidden')) {
+                toggleMenu();
+            }
         }
-    }
-});
-
-  // Cerrar el menú al hacer click en un link
-  const links = document.querySelectorAll('#mobile-menu a');
-
-links.forEach(link => {
-    link.addEventListener('click', () => {
-        toggleMenu();
     });
-});
+
+    const links = document.querySelectorAll('#mobile-menu a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            toggleMenu();
+        });
+    });
   </script>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -95,55 +92,61 @@ links.forEach(link => {
         <p class="text-gray-400 text-sm mt-1">Únete a MediSalud y protege tu salud</p>
       </div>
 
-      <!-- Campos -->
-      <form action="conexionBD/registrarAfiliado.php" method="POST" enctype="multipart/form-data" class="flex flex-col gap-4">
+      <!-- Formulario -->
+      <form id="form-registro" onsubmit="registrarUsuario(event)" class="flex flex-col gap-4">
 
-  <div class="grid grid-cols-2 gap-4">
-    <div>
-      <label class="block text-sm font-semibold text-gray-600 mb-1">Nombre</label>
-      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre"
-        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
-    </div>
-    <div>
-      <label class="block text-sm font-semibold text-gray-600 mb-1">Apellido</label>
-      <input type="text" id="apellido" name="apellido" placeholder="Tu apellido"
-        class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
-    </div>
-  </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-1">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-1">Apellido</label>
+            <input type="text" id="apellido" name="apellido" placeholder="Tu apellido"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
+          </div>
+        </div>
 
-  <div>
-    <label class="block text-sm font-semibold text-gray-600 mb-1">Cédula</label>
-    <input type="text" id="cedula" name="cedula" placeholder="001-1234567-8"
-      class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
-  </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-600 mb-1">Cédula</label>
+          <input type="text" id="cedula" name="cedula" placeholder="001-1234567-8"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
+        </div>
 
-  <div>
-    <label class="block text-sm font-semibold text-gray-600 mb-1">Usuario</label>
-    <input type="text" id="usuario" name="usuario" placeholder="Elige un nombre de usuario"
-      class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
-  </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-600 mb-1">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
+        </div>
 
-  <div>
-    <label class="block text-sm font-semibold text-gray-600 mb-1">Contraseña</label>
-    <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres"
-      class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
-  </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-600 mb-1">Usuario</label>
+          <input type="text" id="usuario" name="usuario" placeholder="Elige un nombre de usuario"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
+        </div>
 
-  <button type="submit"
-    class="w-full bg-accent hover:bg-green-600 text-white font-bold py-3 rounded-xl transition shadow-md mt-2">
-    Crear cuenta
-  </button>
+        <div>
+          <label class="block text-sm font-semibold text-gray-600 mb-1">Contraseña</label>
+          <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
+        </div>
 
-  <!-- Enlace login -->
+        <button type="submit"
+          class="w-full bg-accent hover:bg-green-600 text-white font-bold py-3 rounded-xl transition shadow-md mt-2">
+          Crear cuenta
+        </button>
+
+        <!-- Mensaje de respuesta -->
+        <div id="msg-registro" class="mensaje" style="display:none;"></div>
+
+      </form>
+
+      <!-- Enlace login -->
       <p class="text-center text-sm text-gray-500 mt-6">
         ¿Ya tienes cuenta?
         <a href="login.html" class="text-primary font-semibold hover:underline">Inicia sesión aquí</a>
       </p>
-
-</form>
-
-        <div id="msg-registro" class="mensaje" style="display:none;"></div>
-      </div>
 
     </div>
   </main>
@@ -160,5 +163,53 @@ links.forEach(link => {
   </footer>
 
   <script src="main.js"></script>
+  <script>
+    function registrarUsuario(event) {
+      event.preventDefault();
+      
+      const formData = new FormData();
+      formData.append('nombre', document.getElementById('nombre').value);
+      formData.append('apellido', document.getElementById('apellido').value);
+      formData.append('cedula', document.getElementById('cedula').value);
+      formData.append('email', document.getElementById('email').value);
+      formData.append('usuario', document.getElementById('usuario').value);
+      formData.append('password', document.getElementById('password').value);
+      
+      fetch('conexionBD/register_process.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.exito) {
+          mostrarMensaje('msg-registro', data.mensaje, 'exito');
+          document.getElementById('form-registro').reset();
+          setTimeout(() => window.location.href = 'login.html', 2000);
+        } else {
+          mostrarMensaje('msg-registro', data.mensaje, 'error');
+        }
+      })
+      .catch(error => {
+        mostrarMensaje('msg-registro', 'Error en la solicitud: ' + error, 'error');
+      });
+    }
+
+    function mostrarMensaje(id, texto, tipo) {
+      const el = document.getElementById(id);
+      el.textContent = texto;
+      el.className = 'mensaje ' + tipo;
+      el.style.display = 'block';
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const iconMenu = document.getElementById('icon-menu');
+      const iconClose = document.getElementById('icon-close');
+      
+      menu.classList.toggle('hidden');
+      iconMenu.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    }
+  </script>
 </body>
 </html>

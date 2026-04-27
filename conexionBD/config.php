@@ -1,18 +1,39 @@
 <?php
-// Datos de conexión (ajusta según tu entorno en Laragon)
-$host = "localhost";       // Servidor de la BD
-$user = "root";            // Usuario (por defecto en Laragon suele ser root)
-$password = "";            // Contraseña (vacía en Laragon por defecto)
-$dbname = "sistema_seguro_salud_ars"; // Nombre de la BD
+// config.php - Configuración de BD y sesiones
 
-// Crear conexión
-$conn = new mysqli($host, $user, $password, $dbname);
+// Iniciar sesión
+session_start();
+
+// Datos de conexión a BD
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$database = 'DB_MediSalud_ARS';
+
+// Conectar a la BD
+$conn = new mysqli($host, $user, $password, $database);
 
 // Verificar conexión
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-// Opcional: configurar charset para evitar problemas con acentos/ñ
-$conn->set_charset("utf8");
+// Configurar charset
+$conn->set_charset("utf8mb4");
+
+// Función para limpiar datos
+function limpiar($dato) {
+    global $conn;
+    return $conn->real_escape_string(trim($dato));
+}
+
+// Función para hashear contraseña
+function hashear_password($password) {
+    return password_hash($password, PASSWORD_BCRYPT);
+}
+
+// Función para verificar contraseña
+function verificar_password($password, $hash) {
+    return password_verify($password, $hash);
+}
 ?>
