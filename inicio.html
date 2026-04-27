@@ -30,7 +30,12 @@ document.addEventListener('click', (e) => {
 });
 
   // Cerrar el menú al hacer click en un link
-  const links = document.querySelectorAll('#mobile-menu a');
+  const links = document.querySelectorAll('#mobile-menu a, #mobile-menu button');
+links.forEach(link => {
+    link.addEventListener('click', () => {
+        toggleMenu();
+    });
+});
     
   </script>
   <link rel="stylesheet" href="style.css">
@@ -44,10 +49,21 @@ document.addEventListener('click', (e) => {
         <a href="inicio.html">
           <img src="img/Logo .png" alt="MediSalud" class="h-14 md:h-20 object-contain">
         </a>
+
         <div class="hidden md:flex gap-3">
-          <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
-          <a href="register.html" class="text-sm font-semibold text-white bg-primary hover:bg-primary-dark px-4 py-1.5 rounded-full transition">Registrarse</a>
-        </div>
+  <!-- Botones si NO está logueado -->
+  <div id="botones-sin-sesion" style="display: flex; gap: 12px;">
+    <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
+    <a href="register.html" class="text-sm font-semibold text-white bg-primary hover:bg-primary-dark px-4 py-1.5 rounded-full transition">Registrarse</a>
+  </div>
+  
+  <!-- Botones si ESTÁ logueado -->
+  <div id="botones-con-sesion" style="display: none; gap: 12px; align-items: center;">
+    <span id="nombre-usuario" class="text-sm font-semibold text-gray-700"></span>
+    <button onclick="cerrarSesion()" class="text-sm font-semibold text-white bg-red-500 hover:bg-red-600 px-4 py-1.5 rounded-full transition">Logout</button>
+  </div>
+</div>
+
         <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition" aria-label="Menú">
           <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -66,10 +82,19 @@ document.addEventListener('click', (e) => {
         <a href="planes.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Planes y Programas</a>
         <a href="nosotros.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Nosotros</a>
         <a href="contacto.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Contacto</a>
-        <div class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
-          <a href="login.html"    class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl hover:bg-blue-50 transition">Iniciar sesión</a>
-          <a href="register.html" class="text-center font-semibold text-white bg-primary hover:bg-primary-dark py-2.5 rounded-xl transition">Registrarse</a>
-        </div>
+        
+        <!-- Opciones si NO está logueado -->
+<div id="menu-sin-sesion" class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
+  <a href="login.html"    class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl hover:bg-blue-50 transition">Iniciar sesión</a>
+  <a href="register.html" class="text-center font-semibold text-white bg-primary hover:bg-primary-dark py-2.5 rounded-xl transition">Registrarse</a>
+</div>
+
+<!-- Opciones si ESTÁ logueado -->
+<div id="menu-con-sesion" style="display: none;" class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
+  <p class="text-sm font-semibold text-gray-700 px-4 py-2">Bienvenido, <span id="usuario-menu"></span></p>
+  <button onclick="cerrarSesion()" class="text-center font-semibold text-white bg-red-500 hover:bg-red-600 py-2.5 rounded-xl transition">Logout</button>
+</div>
+
       </div>
     </div>
   </header>
@@ -214,6 +239,63 @@ document.addEventListener('click', (e) => {
 
     </div>
   </section>
+
+  <script>
+  // Verificar sesión al cargar la página
+  document.addEventListener('DOMContentLoaded', function() {
+    verificarSesion();
+  });
+
+  function verificarSesion() {
+    fetch('conexionBD/check_session.php')
+      .then(response => response.json())
+      .then(data => {
+        const botonesConSesion = document.getElementById('botones-con-sesion');
+        const botonesSinSesion = document.getElementById('botones-sin-sesion');
+        const menuConSesion = document.getElementById('menu-con-sesion');
+        const menuSinSesion = document.getElementById('menu-sin-sesion');
+        const nombreUsuario = document.getElementById('nombre-usuario');
+        const usuarioMenu = document.getElementById('usuario-menu');
+
+        if (data.loggedin) {
+          // Mostrar botones de sesión activa
+          if (botonesConSesion) botonesConSesion.style.display = 'flex';
+          if (botonesSinSesion) botonesSinSesion.style.display = 'none';
+          if (menuConSesion) menuConSesion.style.display = 'block';
+          if (menuSinSesion) menuSinSesion.style.display = 'none';
+          
+          // Mostrar nombre de usuario
+          if (nombreUsuario) nombreUsuario.textContent = data.usuario;
+          if (usuarioMenu) usuarioMenu.textContent = data.usuario;
+        } else {
+          // Mostrar botones de sesión no activa
+          if (botonesConSesion) botonesConSesion.style.display = 'none';
+          if (botonesSinSesion) botonesSinSesion.style.display = 'flex';
+          if (menuConSesion) menuConSesion.style.display = 'none';
+          if (menuSinSesion) menuSinSesion.style.display = 'block';
+        }
+      })
+      .catch(error => {
+        console.error('Error verificando sesión:', error);
+      });
+  }
+
+  function cerrarSesion() {
+    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+      window.location.href = 'conexionBD/logout.php';
+    }
+  }
+
+  function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+  
+  menu.classList.toggle('hidden');
+  iconMenu.classList.toggle('hidden');
+  iconClose.classList.toggle('hidden');
+}
+</script>
 
   <!-- ===== FOOTER ===== -->
   <footer class="bg-primary-dark text-white mt-8">
