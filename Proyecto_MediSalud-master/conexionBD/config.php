@@ -5,10 +5,10 @@
 session_start();
 
 // Datos de conexión a BD
-$host = 'xxxx.render.com';
-$user = 'tu_usuario';
-$password = 'tu_contraseña';
-$database = 'tu_basedatos';
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$database = 'DB_MediSalud_ARS';
 
 // Conectar a la BD
 $conn = new mysqli($host, $user, $password, $database);

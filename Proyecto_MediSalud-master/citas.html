@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Citas – MediSalud ARS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
+            accent: '#4CAF50',
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50">
+
+<div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<div class="portal-layout">
+
+  <!-- ─── SIDEBAR ──────────────────────────────────────────── -->
+  <aside id="portal-sidebar" class="portal-sidebar no-print">
+    <div class="px-5 pt-6 pb-4 border-b border-white/10">
+      <img src="img/Logo .png" alt="MediSalud" class="h-12 object-contain">
+      <p class="text-xs text-blue-200 mt-1">Portal del Afiliado</p>
+    </div>
+    <div class="px-5 py-4 border-b border-white/10 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm flex-shrink-0" data-iniciales>DU</div>
+      <div class="min-w-0">
+        <p class="text-sm font-semibold truncate" data-usuario>Cargando...</p>
+        <p class="text-xs text-blue-200">Plan Premium</p>
+      </div>
+    </div>
+    <nav class="flex-1 py-4">
+      <p class="sidebar-section-title">Principal</p>
+      <a href="dashboard.html"   class="sidebar-link"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Dashboard</a>
+      <a href="perfil.html"      class="sidebar-link"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Mi Perfil</a>
+      <p class="sidebar-section-title mt-2">Atención Médica</p>
+      <a href="medicos.html"     class="sidebar-link"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Directorio Médico</a>
+      <a href="citas.html"       class="sidebar-link active"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Mis Citas</a>
+      <a href="telemedicina.html" class="sidebar-link"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>Telemedicina</a>
+      <p class="sidebar-section-title mt-2">Medicamentos y Pagos</p>
+      <a href="recetas.html"     class="sidebar-link"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>Recetas</a>
+      <a href="facturacion.html" class="sidebar-link"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>Facturación</a>
+    </nav>
+    <div class="p-4 border-t border-white/10">
+      <button onclick="cerrarSesion()" class="sidebar-link w-full text-red-300 hover:bg-red-500/20 hover:text-red-200"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>Cerrar Sesión</button>
+      <a href="inicio.html" class="sidebar-link mt-1 text-blue-200"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>Sitio Web</a>
+    </div>
+  </aside>
+
+  <!-- ─── TOPBAR ─────────────────────────────────────────────── -->
+  <header class="portal-topbar no-print">
+    <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="hidden md:flex items-center gap-2 text-sm text-gray-500">
+      <a href="dashboard.html" class="hover:text-primary">Dashboard</a>
+      <span>/</span>
+      <span class="font-semibold text-gray-800">Mis Citas</span>
+    </div>
+    <div class="flex items-center gap-2 ml-auto">
+      <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold" data-iniciales>DU</div>
+      <span class="hidden sm:block text-sm font-semibold text-gray-700" data-usuario></span>
+    </div>
+  </header>
+
+  <!-- ─── CONTENIDO ─────────────────────────────────────────── -->
+  <main class="portal-content">
+
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 anim-fade-in">
+      <div>
+        <h1 class="text-2xl font-extrabold text-gray-800">Citas Médicas</h1>
+        <p class="text-gray-500 text-sm mt-1">Gestiona tus citas programadas y solicita nuevas consultas.</p>
+      </div>
+      <button onclick="mostrarFormularioCita()" class="btn btn-primary no-print">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        Nueva Cita
+      </button>
+    </div>
+
+    <!-- ─ Formulario de nueva cita (colapsable) ─ -->
+    <div id="panel-nueva-cita" class="portal-card p-6 mb-6 hidden anim-fade-in no-print">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="font-bold text-gray-800 flex items-center gap-2">
+          <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Solicitar Nueva Cita
+        </h2>
+        <button onclick="document.getElementById('panel-nueva-cita').classList.add('hidden')"
+          class="modal-close">✕</button>
+      </div>
+
+      <!-- Stepper de pasos -->
+      <div class="stepper mb-6">
+        <div class="step active" id="step1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Médico</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Fecha y hora</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Confirmar</div>
+        </div>
+      </div>
+
+      <form id="form-nueva-cita" onsubmit="procesarNuevaCita(event)">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+
+          <div class="form-group">
+            <label class="form-label">Médico / Especialidad</label>
+            <select id="cita-medico" class="form-control" required onchange="actualizarStepper(2)">
+              <option value="">— Selecciona un médico —</option>
+              <option value="Dr. Carlos Méndez"    data-esp="Cardiología">Dr. Carlos Méndez – Cardiología</option>
+              <option value="Dra. María González"  data-esp="Pediatría">Dra. María González – Pediatría</option>
+              <option value="Dra. Ana Martínez"    data-esp="Ginecología">Dra. Ana Martínez – Ginecología</option>
+              <option value="Dr. Luis Pérez"       data-esp="Neurología">Dr. Luis Pérez – Neurología</option>
+              <option value="Dra. Carmen Santos"   data-esp="Dermatología">Dra. Carmen Santos – Dermatología</option>
+              <option value="Dra. Patricia Núñez"  data-esp="Endocrinología">Dra. Patricia Núñez – Endocrinología</option>
+              <option value="Dr. Miguel Castillo"  data-esp="Medicina General">Dr. Miguel Castillo – Medicina General</option>
+              <option value="Dra. Isabel Torres"   data-esp="Psiquiatría">Dra. Isabel Torres – Psiquiatría</option>
+              <option value="Dr. Fernando Vega"    data-esp="Urología">Dr. Fernando Vega – Urología</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Fecha preferida</label>
+            <input type="date" id="cita-fecha" class="form-control" required min="" onchange="actualizarStepper(3); generarHorarios()">
+          </div>
+
+        </div>
+
+        <!-- Selector de hora visual -->
+        <div class="form-group">
+          <label class="form-label">Horario disponible</label>
+          <div id="slots-container" class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-2 mt-2">
+            <div class="col-span-full text-sm text-gray-400 italic">Selecciona una fecha primero.</div>
+          </div>
+          <input type="hidden" id="cita-hora" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Motivo de consulta</label>
+          <textarea id="cita-motivo" class="form-control resize-none" rows="3"
+            placeholder="Describe brevemente el motivo de tu consulta..." required></textarea>
+        </div>
+
+        <div class="flex gap-3">
+          <button type="submit" class="btn btn-primary">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Solicitar Cita
+          </button>
+          <button type="button" onclick="document.getElementById('panel-nueva-cita').classList.add('hidden')"
+            class="btn btn-sm" style="background:#f1f5f9;color:#64748b;">Cancelar</button>
+        </div>
+        <div id="msg-nueva-cita" class="mensaje mt-3" style="display:none;"></div>
+      </form>
+    </div>
+
+    <!-- ─ Lista de citas ─ -->
+    <div class="portal-card anim-fade-in anim-delay-1">
+      <div class="flex items-center justify-between p-5 border-b border-gray-100">
+        <h2 class="font-bold text-gray-800">Mis Citas</h2>
+        <!-- Filtro rápido por estado -->
+        <div class="flex gap-2 text-xs no-print">
+          <button onclick="filtrarCitas('')"        class="badge badge-gray cursor-pointer hover:bg-gray-200 transition">Todas</button>
+          <button onclick="filtrarCitas('confirmada')" class="badge badge-green cursor-pointer hover:opacity-80 transition">Confirmadas</button>
+          <button onclick="filtrarCitas('pendiente')"  class="badge badge-yellow cursor-pointer hover:opacity-80 transition">Pendientes</button>
+          <button onclick="filtrarCitas('completada')" class="badge badge-blue cursor-pointer hover:opacity-80 transition">Completadas</button>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Médico</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Centro</th>
+              <th>Estado</th>
+              <th class="no-print">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="citas-tbody">
+            <!-- Renderizado por JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="main.js"></script>
+<script>
+  let citasFiltradas = [];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    verificarSesionPortal();
+    citasFiltradas = [...citasEjemplo];
+    renderizarCitas(citasFiltradas);
+
+    // Fecha mínima = hoy
+    const hoy = new Date().toISOString().split('T')[0];
+    document.getElementById('cita-fecha').min = hoy;
+
+    // Si viene con ?nuevo=1, abrir formulario
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('nuevo') === '1') {
+      mostrarFormularioCita();
+
+      // Pre-rellenar médico si viene de directorio
+      const medicoGuardado = sessionStorage.getItem('citaMedico');
+      if (medicoGuardado) {
+        const { nombre } = JSON.parse(medicoGuardado);
+        const select = document.getElementById('cita-medico');
+        for (const opt of select.options) {
+          if (opt.value.includes(nombre.split(' ')[0])) {
+            opt.selected = true;
+            break;
+          }
+        }
+        sessionStorage.removeItem('citaMedico');
+      }
+    }
+  });
+
+  function filtrarCitas(estado) {
+    const lista = estado ? citasEjemplo.filter(c => c.estado === estado) : citasEjemplo;
+    renderizarCitas(lista);
+  }
+
+  function actualizarStepper(pasoActivo) {
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById(`step${i}`);
+      if (!el) continue;
+      el.classList.remove('active', 'done');
+      if (i < pasoActivo) el.classList.add('done');
+      else if (i === pasoActivo) el.classList.add('active');
+    }
+    // Actualizar líneas
+    document.querySelectorAll('.step-line').forEach((line, idx) => {
+      line.classList.toggle('done', idx + 2 < pasoActivo);
+    });
+  }
+
+  // Genera horarios de ejemplo para la fecha seleccionada
+  function generarHorarios() {
+    const container = document.getElementById('slots-container');
+    const horaInput = document.getElementById('cita-hora');
+    if (!container) return;
+
+    const slots   = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','14:00','14:30','15:00','15:30','16:00','16:30'];
+    // Simular algunos horarios ocupados aleatoriamente basados en la fecha
+    const ocupados = [2, 5, 8, 11]; // índices bloqueados
+
+    container.innerHTML = slots.map((hora, i) => {
+      const noDisp = ocupados.includes(i);
+      return `<div class="time-slot ${noDisp ? 'unavailable' : ''}"
+                   onclick="${noDisp ? '' : `seleccionarHora('${hora}', this)`}">
+                ${hora}
+              </div>`;
+    }).join('');
+
+    horaInput.value = '';
+  }
+
+  function seleccionarHora(hora, el) {
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('cita-hora').value = hora;
+  }
+</script>
+</body>
+</html>
