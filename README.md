@@ -6,18 +6,17 @@
 
 ## Descripción
 
-MediSalud ARS es una plataforma web moderna y responsiva para la gestión de seguros de salud. Permite a los usuarios registrarse, iniciar sesión en la sesión demo, gestionar sus datos personales y registrar servicios médicos.
+MediSalud ARS es una plataforma web moderna y responsiva para la gestión de seguros de salud, permite a los usuarios usar una cuenta "DEMO" en la sesión, gestionar sus datos personales y registrar servicios médicos.
 
 ## Características
 
 - Interfaz clara y profesional
 - 6 secciones principales con diseño único
-- Sistema de autenticación con LocalStorage
 - Gestión de registros médicos
-- Estadísticas en tiempo real
 - Diseño 100% responsivo (Mobile-First)
-- Validación de formularios
-- Almacenamiento local sin servidor
+- Almacenamiento local sin servidor (LocaleStorage)
+
+- Disponible para todos en GitHub Page
 
 ## Secciones de la Web
 
