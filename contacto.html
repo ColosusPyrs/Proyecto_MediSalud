@@ -1,416 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- ===== META Y TÍTULO ===== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contacto – MediSalud</title>
-
-  <!-- ===== TAILWIND CSS (CDN) ===== -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary:  { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
-            accent:   '#4CAF50',
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- ===== HOJA DE ESTILOS EXTERNA ===== -->
-  <link rel="stylesheet" href="style.css">
+  <title>Contacto - MediSalud</title>
+  <link rel="stylesheet" href="styles/contacto.css">
 </head>
-
-<body class="bg-gray-50 font-sans text-gray-800">
-
-  <!-- ===== HEADER ===== -->
-  <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
-
-      <!-- Logo + Botones de sesión (escritorio) -->
-      <div class="flex justify-between items-center py-3">
-        <a href="inicio.html">
-          <img src="img/Logo .png" alt="MediSalud" class="h-14 md:h-20 object-contain">
-        </a>
-
-        <div class="hidden md:flex gap-3">
-
-          <!-- Botones si NO está logueado -->
-          <div id="botones-sin-sesion" style="display: flex; gap: 12px;">
-            <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
-            <a href="register.html" class="text-sm font-semibold text-white bg-primary hover:bg-primary-dark px-4 py-1.5 rounded-full transition">Registrarse</a>
-          </div>
-
-          <!-- Botones si ESTÁ logueado -->
-          <div id="botones-con-sesion" style="display: none; gap: 12px; align-items: center;">
-            <span id="nombre-usuario" class="text-sm font-semibold text-gray-700"></span>
-            <button onclick="cerrarSesion()" class="text-sm font-semibold text-white bg-red-500 hover:bg-red-600 px-4 py-1.5 rounded-full transition">Logout</button>
-          </div>
-
-        </div>
-
-        <!-- Botón hamburguesa (móvil) -->
-        <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition" aria-label="Menú">
-          <svg id="icon-menu"  class="w-6 h-6"        fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">MediSalud ARS</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="planes.html">Planes</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html" class="active">Contacto</a></li>
+        <li><a href="sesiondemo.html">Sesión Demo</a></li>
+      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-
-      <!-- Navegación escritorio -->
-      <nav class="hidden md:flex justify-center gap-8 py-3 border-t border-gray-100">
-        <a href="inicio.html"    class="font-medium text-gray-600 hover:text-primary transition">Inicio</a>
-        <a href="servicios.html" class="font-medium text-gray-600 hover:text-primary transition">Servicios</a>
-        <a href="planes.html"    class="font-medium text-gray-600 hover:text-primary transition">Planes y Programas</a>
-        <a href="nosotros.html"  class="font-medium text-gray-600 hover:text-primary transition">Nosotros</a>
-        <a href="contacto.html"  class="font-medium text-primary border-b-2 border-primary pb-0.5">Contacto</a>
-      </nav>
-
-      <!-- Menú móvil desplegable -->
-      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-3 flex flex-col gap-1">
-        <a href="inicio.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Inicio</a>
-        <a href="servicios.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Servicios</a>
-        <a href="planes.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Planes y Programas</a>
-        <a href="nosotros.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Nosotros</a>
-        <a href="contacto.html"  class="px-4 py-2.5 text-primary font-semibold bg-blue-50 rounded-xl">Contacto</a>
-
-        <!-- Opciones menú móvil si NO está logueado -->
-        <div id="menu-sin-sesion" class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
-          <a href="login.html"    class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl hover:bg-blue-50 transition">Iniciar sesión</a>
-          <a href="register.html" class="text-center font-semibold text-white bg-primary hover:bg-primary-dark py-2.5 rounded-xl transition">Registrarse</a>
-        </div>
-
-        <!-- Opciones menú móvil si ESTÁ logueado -->
-        <div id="menu-con-sesion" style="display: none;" class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
-          <p class="text-sm font-semibold text-gray-700 px-4 py-2">Bienvenido, <span id="usuario-menu"></span></p>
-          <button onclick="cerrarSesion()" class="text-center font-semibold text-white bg-red-500 hover:bg-red-600 py-2.5 rounded-xl transition">Logout</button>
-        </div>
-      </div>
-
     </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Contáctanos</h1>
+    <p>Estamos aquí para ayudarte</p>
   </header>
-  <!-- ===== FIN HEADER ===== -->
 
+  <section class="contact">
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2>Información de Contacto</h2>
+        <div class="info-item">
+          <h4>📞 Teléfono</h4>
+          <p>+1 (809) 555-0123</p>
+        </div>
+        <div class="info-item">
+          <h4>📧 Email</h4>
+          <p>info@medisalud.com</p>
+        </div>
+        <div class="info-item">
+          <h4>📍 Dirección</h4>
+          <p>Av. Independencia #123, Santo Domingo, RD</p>
+        </div>
+        <div class="info-item">
+          <h4>🕐 Horario</h4>
+          <p>Lunes - Viernes: 8:00 AM - 6:00 PM</p>
+        </div>
+      </div>
 
-  <!-- ===== HERO / BANNER ===== -->
-  <section class="bg-gradient-to-r from-primary-dark to-primary py-16 text-white text-center px-6">
-    <h1 class="text-4xl font-bold mb-3">Contáctanos</h1>
-    <p class="text-blue-200 text-lg max-w-xl mx-auto">Estamos aquí para ayudarte. Escríbenos y te responderemos pronto.</p>
+      <form class="contact-form" onsubmit="handleContactForm(event)">
+        <h2>Envíanos un Mensaje</h2>
+        <div class="form-group">
+          <input type="text" id="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" placeholder="Tu email" required>
+        </div>
+        <div class="form-group">
+          <textarea id="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Enviar Mensaje</button>
+      </form>
+    </div>
   </section>
-  <!-- ===== FIN HERO ===== -->
 
-
-  <!-- ===== CONTENIDO PRINCIPAL ===== -->
-  <section class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-    <!-- Columna izquierda: Formulario de contacto -->
-    <div class="bg-white rounded-3xl shadow p-10">
-      <h2 class="text-2xl font-bold text-primary-dark mb-6">Envíanos un mensaje</h2>
-      <div class="flex flex-col gap-4">
-
-        <!-- Campo: Nombre -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-600 mb-1">Nombre</label>
-          <input type="text" id="contacto-nombre" placeholder="Tu nombre completo"
-            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
-        </div>
-
-        <!-- Campo: Correo -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-600 mb-1">Correo electrónico</label>
-          <input type="email" id="contacto-email" placeholder="tu@email.com"
-            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
-        </div>
-
-        <!-- Campo: Mensaje -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-600 mb-1">Mensaje</label>
-          <textarea id="contacto-mensaje" placeholder="Escribe tu mensaje (mínimo 10 caracteres)" rows="6"
-            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition resize-none text-sm"></textarea>
-        </div>
-
-        <!-- Botón enviar -->
-        <button type="button" onclick="enviarContacto()"
-          class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition shadow-md">
-          Enviar mensaje
-        </button>
-
-        <!-- Mensaje de confirmación/error -->
-        <div id="msg-contacto" class="mensaje" style="display:none;"></div>
-
-      </div>
-    </div>
-    <!-- FIN Formulario -->
-
-    <!-- Columna derecha: Info + Horario -->
-    <div class="flex flex-col gap-6">
-
-      <!-- Información de contacto -->
-      <div class="bg-white rounded-3xl shadow p-8">
-        <h3 class="text-xl font-bold text-primary-dark mb-5">Información de contacto</h3>
-        <div class="flex flex-col gap-4">
-
-          <!-- Dirección -->
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-            </div>
-            <div>
-              <p class="font-semibold text-gray-700 text-sm">Dirección</p>
-              <p class="text-gray-500 text-sm">Calle Principal #123, Santo Domingo, República Dominicana</p>
-            </div>
-          </div>
-
-          <!-- Teléfono -->
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-              </svg>
-            </div>
-            <div>
-              <p class="font-semibold text-gray-700 text-sm">Teléfono</p>
-              <p class="text-gray-500 text-sm">+1 234 567 890</p>
-            </div>
-          </div>
-
-          <!-- Email -->
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <div>
-              <p class="font-semibold text-gray-700 text-sm">Email</p>
-              <p class="text-gray-500 text-sm">info@medisalud.com</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <!-- Nota: bloque de redes sociales eliminado (no compatible con GitHub Pages estático) -->
-
-      <!-- Horario de atención -->
-      <div class="bg-white rounded-3xl shadow p-8">
-        <h3 class="text-xl font-bold text-primary-dark mb-3">Horario de atención</h3>
-        <div class="flex flex-col gap-2 text-sm text-gray-600">
-          <div class="flex justify-between border-b border-gray-100 pb-2">
-            <span class="font-medium">Lunes – Viernes</span>
-            <span>8:00 AM – 6:00 PM</span>
-          </div>
-          <div class="flex justify-between border-b border-gray-100 pb-2">
-            <span class="font-medium">Sábado</span>
-            <span>9:00 AM – 1:00 PM</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="font-medium">Domingo</span>
-            <span class="text-red-400">Cerrado</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <!-- FIN Columna derecha -->
-
-  </section>
-  <!-- ===== FIN CONTENIDO PRINCIPAL ===== -->
-
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="bg-primary-dark text-white">
-    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-
-      <!-- Logo y eslogan -->
-      <div>
-        <img src="img/Logo .png" alt="MediSalud" class="h-12 mb-3">
-        <p class="text-blue-200 text-sm">Comprometidos con tu salud y bienestar.</p>
-      </div>
-
-      <!-- Navegación footer -->
-      <div>
-        <h3 class="font-bold text-lg mb-3">Navegación</h3>
-        <ul class="space-y-2 text-blue-200 text-sm">
-          <li><a href="inicio.html"    class="hover:text-white transition">Inicio</a></li>
-          <li><a href="servicios.html" class="hover:text-white transition">Servicios</a></li>
-          <li><a href="planes.html"    class="hover:text-white transition">Planes y Programas</a></li>
-          <li><a href="nosotros.html"  class="hover:text-white transition">Nosotros</a></li>
-        </ul>
-      </div>
-
-      <!-- Legal -->
-      <div>
-        <h3 class="font-bold text-lg mb-3">Legal</h3>
-        <ul class="space-y-2 text-blue-200 text-sm">
-          <li><a href="privacidad.html" class="hover:text-white transition">Políticas de privacidad</a></li>
-          <li><a href="terminos.html"   class="hover:text-white transition">Términos de uso</a></li>
-        </ul>
-      </div>
-
-    </div>
-    <!-- Copyright -->
-    <div class="border-t border-blue-800 text-center py-4 text-blue-300 text-sm">
-      © 2026 MediSalud. Todos los derechos reservados.
-    </div>
+  <footer class="footer">
+    <p>&copy; 2026 MediSalud ARS. Todos los derechos reservados.</p>
   </footer>
-  <!-- ===== FIN FOOTER ===== -->
 
-
-  <!-- ===== JAVASCRIPT ===== -->
-  <script>
-
-    /* -------------------------------------------------------
-       MENÚ MÓVIL
-       Abre/cierra el menú hamburguesa y alterna los íconos
-    ------------------------------------------------------- */
-    function toggleMenu() {
-      const menu      = document.getElementById('mobile-menu');
-      const iconMenu  = document.getElementById('icon-menu');
-      const iconClose = document.getElementById('icon-close');
-
-      menu.classList.toggle('hidden');
-      iconMenu.classList.toggle('hidden');
-      iconClose.classList.toggle('hidden');
-    }
-
-    // Cerrar el menú al hacer clic fuera de él
-    document.addEventListener('click', (e) => {
-      const menu   = document.getElementById('mobile-menu');
-      const button = document.querySelector('button[onclick="toggleMenu()"]');
-
-      if (menu && button && !menu.contains(e.target) && !button.contains(e.target)) {
-        if (!menu.classList.contains('hidden')) {
-          toggleMenu();
-        }
-      }
-    });
-
-    // Cerrar el menú al hacer clic en cualquier enlace interno
-    document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(link => {
-      link.addEventListener('click', () => toggleMenu());
-    });
-
-
-    /* -------------------------------------------------------
-       SESIÓN CON LOCALSTORAGE
-       Reemplaza la verificación que antes hacía check_session.php
-       Lee el usuario guardado en localStorage y actualiza la UI
-    ------------------------------------------------------- */
-
-    // Verifica si hay sesión activa y ajusta los botones del header
-    function verificarSesion() {
-      const usuario = localStorage.getItem('ms_usuario');
-
-      const botonesConSesion = document.getElementById('botones-con-sesion');
-      const botonesSinSesion = document.getElementById('botones-sin-sesion');
-      const menuConSesion    = document.getElementById('menu-con-sesion');
-      const menuSinSesion    = document.getElementById('menu-sin-sesion');
-      const nombreUsuario    = document.getElementById('nombre-usuario');
-      const usuarioMenu      = document.getElementById('usuario-menu');
-
-      if (usuario) {
-        // Usuario logueado: mostrar nombre y botón de logout
-        if (botonesConSesion) botonesConSesion.style.display = 'flex';
-        if (botonesSinSesion) botonesSinSesion.style.display = 'none';
-        if (menuConSesion)    menuConSesion.style.display    = 'block';
-        if (menuSinSesion)    menuSinSesion.style.display    = 'none';
-        if (nombreUsuario)    nombreUsuario.textContent      = usuario;
-        if (usuarioMenu)      usuarioMenu.textContent        = usuario;
-      } else {
-        // Sin sesión: mostrar botones de login/registro
-        if (botonesConSesion) botonesConSesion.style.display = 'none';
-        if (botonesSinSesion) botonesSinSesion.style.display = 'flex';
-        if (menuConSesion)    menuConSesion.style.display    = 'none';
-        if (menuSinSesion)    menuSinSesion.style.display    = 'block';
-      }
-    }
-
-    // Cierra la sesión borrando los datos de localStorage y redirige al inicio
-    function cerrarSesion() {
-      if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-        localStorage.removeItem('ms_usuario');
-        localStorage.removeItem('ms_email');
-        window.location.href = 'inicio.html';
-      }
-    }
-
-
-    /* -------------------------------------------------------
-       FORMULARIO DE CONTACTO (LocalStorage)
-       Guarda los mensajes enviados en localStorage ya que no
-       hay backend disponible en GitHub Pages.
-       Los mensajes se almacenan como array JSON bajo la clave
-       "ms_mensajes_contacto".
-    ------------------------------------------------------- */
-    function enviarContacto() {
-      const nombre  = document.getElementById('contacto-nombre').value.trim();
-      const email   = document.getElementById('contacto-email').value.trim();
-      const mensaje = document.getElementById('contacto-mensaje').value.trim();
-      const msgDiv  = document.getElementById('msg-contacto');
-
-      // Validaciones básicas
-      if (!nombre || !email || !mensaje) {
-        mostrarMensaje(msgDiv, 'Por favor, completa todos los campos.', 'error');
-        return;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        mostrarMensaje(msgDiv, 'Introduce un correo electrónico válido.', 'error');
-        return;
-      }
-      if (mensaje.length < 10) {
-        mostrarMensaje(msgDiv, 'El mensaje debe tener al menos 10 caracteres.', 'error');
-        return;
-      }
-
-      // Guardar el mensaje en LocalStorage
-      const mensajes = JSON.parse(localStorage.getItem('ms_mensajes_contacto') || '[]');
-      mensajes.push({
-        nombre,
-        email,
-        mensaje,
-        fecha: new Date().toISOString()
-      });
-      localStorage.setItem('ms_mensajes_contacto', JSON.stringify(mensajes));
-
-      // Confirmar al usuario y limpiar el formulario
-      mostrarMensaje(msgDiv, '¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.', 'ok');
-      document.getElementById('contacto-nombre').value  = '';
-      document.getElementById('contacto-email').value   = '';
-      document.getElementById('contacto-mensaje').value = '';
-    }
-
-    // Muestra un mensaje de éxito o error debajo del formulario
-    function mostrarMensaje(elemento, texto, tipo) {
-      elemento.textContent      = texto;
-      elemento.style.display    = 'block';
-      elemento.style.color      = tipo === 'ok' ? '#4CAF50' : '#e53e3e';
-      elemento.style.fontWeight = '600';
-      elemento.style.marginTop  = '8px';
-
-      // Ocultar automáticamente después de 5 segundos
-      setTimeout(() => { elemento.style.display = 'none'; }, 5000);
-    }
-
-
-    /* -------------------------------------------------------
-       INICIALIZACIÓN
-       Se ejecuta cuando el DOM está completamente cargado
-    ------------------------------------------------------- */
-    document.addEventListener('DOMContentLoaded', function () {
-      verificarSesion();
-    });
-
-  </script>
-  <!-- ===== FIN JAVASCRIPT ===== -->
-
-  <!-- Script externo (main.js) — debe también trabajar sin PHP/backend -->
-  <script src="main.js"></script>
-
+  <script src="js/script.js"></script>
 </body>
 </html>
