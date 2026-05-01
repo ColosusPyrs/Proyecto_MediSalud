@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Políticas de Privacidad – MediSalud</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
+            accent:   '#4CAF50',
+          }
+        }
+      }
+    }
+
+    
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+  <!-- ===== HEADER ===== -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center py-3">
+        <a href="inicio.html">
+          <img src="img/Logo .png" alt="MediSalud" class="h-14 md:h-20 object-contain">
+        </a>
+        <div class="hidden md:flex gap-3">
+          <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
+          <a href="register.html" class="text-sm font-semibold text-white bg-primary hover:bg-primary-dark px-4 py-1.5 rounded-full transition">Registrarse</a>
+        </div>
+        <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition" aria-label="Menú">
+          <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="hidden md:flex justify-center gap-8 py-3 border-t border-gray-100">
+        <a href="inicio.html"    class="font-medium text-gray-600 hover:text-primary transition">Inicio</a>
+        <a href="servicios.html" class="font-medium text-gray-600 hover:text-primary transition">Servicios</a>
+        <a href="planes.html"    class="font-medium text-gray-600 hover:text-primary transition">Planes y Programas</a>
+        <a href="nosotros.html"  class="font-medium text-gray-600 hover:text-primary transition">Nosotros</a>
+        <a href="contacto.html"  class="font-medium text-gray-600 hover:text-primary transition">Contacto</a>
+      </nav>
+      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-3 flex flex-col gap-1">
+        <a href="inicio.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Inicio</a>
+        <a href="servicios.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Servicios</a>
+        <a href="planes.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Planes y Programas</a>
+        <a href="nosotros.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Nosotros</a>
+        <a href="contacto.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Contacto</a>
+        <div class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
+          <a href="login.html"    class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl hover:bg-blue-50 transition">Iniciar sesión</a>
+          <a href="register.html" class="text-center font-semibold text-white bg-primary hover:bg-primary-dark py-2.5 rounded-xl transition">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="bg-gradient-to-r from-primary-dark to-primary py-12 text-white text-center px-6">
+    <h1 class="text-4xl font-bold mb-2">Políticas de Privacidad</h1>
+    <p class="text-blue-200">Última actualización: enero 2026</p>
+  </section>
+
+  <!-- ===== CONTENIDO ===== -->
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <div class="bg-white rounded-3xl shadow p-10 flex flex-col gap-8">
+
+      <div>
+        <h2 class="text-xl font-bold text-primary-dark mb-3 flex items-center gap-2">
+          <span class="w-7 h-7 bg-blue-100 rounded-full text-primary text-sm flex items-center justify-center font-bold">1</span>
+          Introducción
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm">
+          En MediSalud nos comprometemos a proteger la privacidad y la información personal de nuestros usuarios.
+          Esta política de privacidad explica cómo recopilamos, utilizamos y protegemos la información que los usuarios
+          proporcionan a través de nuestro sitio web.
+        </p>
+      </div>
+
+      <hr class="border-gray-100">
+
+      <div>
+        <h2 class="text-xl font-bold text-primary-dark mb-3 flex items-center gap-2">
+          <span class="w-7 h-7 bg-blue-100 rounded-full text-primary text-sm flex items-center justify-center font-bold">2</span>
+          Información que recopilamos
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm">
+          Podemos recopilar información personal como nombre, correo electrónico, número de teléfono y otros datos
+          necesarios cuando el usuario se registra en nuestro sistema o completa formularios de contacto.
+        </p>
+      </div>
+
+      <hr class="border-gray-100">
+
+      <div>
+        <h2 class="text-xl font-bold text-primary-dark mb-3 flex items-center gap-2">
+          <span class="w-7 h-7 bg-blue-100 rounded-full text-primary text-sm flex items-center justify-center font-bold">3</span>
+          Uso de la información
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm">
+          La información recopilada se utiliza para mejorar nuestros servicios, gestionar cuentas de usuario,
+          responder consultas y proporcionar información sobre nuestros planes de salud y servicios médicos.
+        </p>
+      </div>
+
+      <hr class="border-gray-100">
+
+      <div>
+        <h2 class="text-xl font-bold text-primary-dark mb-3 flex items-center gap-2">
+          <span class="w-7 h-7 bg-blue-100 rounded-full text-primary text-sm flex items-center justify-center font-bold">4</span>
+          Protección de la información
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm">
+          Implementamos medidas de seguridad para proteger la información personal de nuestros usuarios y evitar
+          accesos no autorizados, alteración o divulgación de los datos.
+        </p>
+      </div>
+
+      <hr class="border-gray-100">
+
+      <div>
+        <h2 class="text-xl font-bold text-primary-dark mb-3 flex items-center gap-2">
+          <span class="w-7 h-7 bg-blue-100 rounded-full text-primary text-sm flex items-center justify-center font-bold">5</span>
+          Compartir información
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm">
+          MediSalud no vende ni comparte la información personal de los usuarios con terceros, excepto cuando sea
+          necesario para proporcionar servicios médicos o cuando la ley lo requiera.
+        </p>
+      </div>
+
+      <hr class="border-gray-100">
+
+      <div>
+        <h2 class="text-xl font-bold text-primary-dark mb-3 flex items-center gap-2">
+          <span class="w-7 h-7 bg-blue-100 rounded-full text-primary text-sm flex items-center justify-center font-bold">6</span>
+          Derechos del usuario
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm">
+          Los usuarios tienen derecho a solicitar acceso, corrección o eliminación de su información personal en
+          cualquier momento comunicándose con nuestro equipo de atención al cliente.
+        </p>
+      </div>
+
+      <hr class="border-gray-100">
+
+      <div>
+        <h2 class="text-xl font-bold text-primary-dark mb-3 flex items-center gap-2">
+          <span class="w-7 h-7 bg-blue-100 rounded-full text-primary text-sm flex items-center justify-center font-bold">7</span>
+          Cambios en la política de privacidad
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm">
+          Nos reservamos el derecho de actualizar esta política de privacidad cuando sea necesario.
+          Cualquier cambio será publicado en esta página.
+        </p>
+      </div>
+
+      <hr class="border-gray-100">
+
+      <div>
+        <h2 class="text-xl font-bold text-primary-dark mb-3 flex items-center gap-2">
+          <span class="w-7 h-7 bg-blue-100 rounded-full text-primary text-sm flex items-center justify-center font-bold">8</span>
+          Contacto
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm">
+          Si tienes preguntas sobre nuestras políticas de privacidad puedes contactarnos a través de nuestro correo electrónico:
+          <a href="mailto:info@medisalud.com" class="text-primary font-semibold hover:underline">info@medisalud.com</a>.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-primary-dark text-white">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <img src="img/Logo .png" alt="MediSalud" class="h-12 mb-3">
+        <p class="text-blue-200 text-sm">Comprometidos con tu salud y bienestar.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-3">Navegación</h3>
+        <ul class="space-y-2 text-blue-200 text-sm">
+          <li><a href="inicio.html"    class="hover:text-white transition">Inicio</a></li>
+          <li><a href="servicios.html" class="hover:text-white transition">Servicios</a></li>
+          <li><a href="planes.html"    class="hover:text-white transition">Planes y Programas</a></li>
+          <li><a href="contacto.html"  class="hover:text-white transition">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-3">Legal</h3>
+        <ul class="space-y-2 text-blue-200 text-sm">
+          <li><a href="privacidad.html" class="hover:text-white transition">Políticas de privacidad</a></li>
+          <li><a href="terminos.html"   class="hover:text-white transition">Términos de uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-blue-800 text-center py-4 text-blue-300 text-sm">
+      © 2026 MediSalud. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+    const mobile = document.getElementById('mobile-menu');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
+
+    if (!mobile || !iconMenu || !iconClose) return;
+
+    const isHidden = mobile.classList.contains('hidden');
+
+    if (isHidden) {
+        // Abrir menú
+        mobile.classList.remove('hidden');
+        iconMenu.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+    } else {
+        // Cerrar menú
+        mobile.classList.add('hidden');
+        iconMenu.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+    }
+}
+
+// Cerrar si hacen click fuera del menú
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.querySelector('button[onclick="toggleMenu()"]');
+
+    if (!menu.contains(e.target) && !button.contains(e.target)) {
+        if (!menu.classList.contains('hidden')) {
+            toggleMenu();
+        }
+    }
+});
+
+  // Cerrar el menú al hacer click en un link
+  const links = document.querySelectorAll('#mobile-menu a');
+
+links.forEach(link => {
+    link.addEventListener('click', () => {
+        toggleMenu();
+    });
+});
+  </script>
+</body>
+</html>

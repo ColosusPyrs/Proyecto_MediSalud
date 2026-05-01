@@ -1,0 +1,28 @@
+/*
+ * style.css – MediSalud
+ * El diseño visual está manejado por Tailwind CSS (CDN).
+ * Este archivo contiene únicamente estilos aplicados dinámicamente por main.js.
+ */
+
+/* ============================================================
+   Mensajes de validación (aplicados dinámicamente por JS)
+   ============================================================ */
+.mensaje {
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.mensaje.error {
+    background-color: #fde8e8;
+    color: #c0392b;
+    border: 1px solid #e74c3c;
+}
+
+.mensaje.exito {
+    background-color: #e8f8e8;
+    color: #1e7e34;
+    border: 1px solid #28a745;
+}

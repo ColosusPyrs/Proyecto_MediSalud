@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/Proyecto_MediSalud/">
+  <title>Mi Perfil – MediSalud</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
+            accent:   '#4CAF50',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+  <!-- ===== HEADER ===== -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex justify-between items-center py-3">
+        <a href="inicio.html">
+          <img src="img/Logo .png" alt="MediSalud" class="h-14 md:h-20 object-contain">
+        </a>
+
+        <div class="hidden md:flex gap-3">
+          <div id="botones-sin-sesion" style="display: flex; gap: 12px;">
+            <a href="login.html" class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
+            <a href="register.html" class="text-sm font-semibold text-white bg-primary hover:bg-primary-dark px-4 py-1.5 rounded-full transition">Registrarse</a>
+          </div>
+          
+          <div id="botones-con-sesion" style="display: none; gap: 12px; align-items: center;">
+            <span id="nombre-usuario" class="text-sm font-semibold text-gray-700"></span>
+            <button onclick="cerrarSesion()" class="text-sm font-semibold text-white bg-red-500 hover:bg-red-600 px-4 py-1.5 rounded-full transition">Logout</button>
+          </div>
+        </div>
+
+        <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+          <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      
+      <nav class="hidden md:flex justify-center gap-8 py-3 border-t border-gray-100">
+        <a href="inicio.html" class="font-medium text-gray-600 hover:text-primary transition">Inicio</a>
+        <a href="servicios.html" class="font-medium text-gray-600 hover:text-primary transition">Servicios</a>
+        <a href="planes.html" class="font-medium text-gray-600 hover:text-primary transition">Planes y Programas</a>
+        <a href="perfil.html" class="font-medium text-primary border-b-2 border-primary pb-0.5">Mi Perfil</a>
+        <a href="contacto.html" class="font-medium text-gray-600 hover:text-primary transition">Contacto</a>
+      </nav>
+
+      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-3 flex flex-col gap-1">
+        <a href="inicio.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Inicio</a>
+        <a href="servicios.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Servicios</a>
+        <a href="planes.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Planes y Programas</a>
+        <a href="perfil.html" class="px-4 py-2.5 text-primary font-semibold bg-blue-50 rounded-xl">Mi Perfil</a>
+        <a href="contacto.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Contacto</a>
+        
+        <div id="menu-sin-sesion" class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
+          <a href="login.html" class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl hover:bg-blue-50 transition">Iniciar sesión</a>
+          <a href="register.html" class="text-center font-semibold text-white bg-primary hover:bg-primary-dark py-2.5 rounded-xl transition">Registrarse</a>
+        </div>
+
+        <div id="menu-con-sesion" style="display: none;" class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
+          <p class="text-sm font-semibold text-gray-700 px-4 py-2">Bienvenido, <span id="usuario-menu"></span></p>
+          <button onclick="cerrarSesion()" class="text-center font-semibold text-white bg-red-500 hover:bg-red-600 py-2.5 rounded-xl transition">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    
+    <!-- Mensaje de error/éxito -->
+    <div id="msg-perfil" class="mensaje" style="display:none; margin-bottom: 20px;"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+      <!-- ===== SIDEBAR: MENÚ ===== -->
+      <aside class="lg:col-span-1">
+        <div class="bg-white rounded-2xl shadow p-6 sticky top-24">
+          <h3 class="text-xl font-bold text-primary-dark mb-4">Mi Cuenta</h3>
+          <nav class="flex flex-col gap-2">
+            <button onclick="mostrarSeccion('datos-personales')" class="tab-btn text-left px-4 py-3 rounded-lg bg-blue-50 text-primary font-semibold transition" data-tab="datos-personales">
+              📋 Datos Personales
+            </button>
+            <button onclick="mostrarSeccion('plan-salud')" class="tab-btn text-left px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition" data-tab="plan-salud">
+              🏥 Plan de Salud
+            </button>
+            <button onclick="mostrarSeccion('historial-medico')" class="tab-btn text-left px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition" data-tab="historial-medico">
+              📑 Historial Médico
+            </button>
+            <button onclick="cerrarSesion()" class="text-left px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition mt-2 border-t pt-4">
+              🚪 Cerrar Sesión
+            </button>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- ===== CONTENIDO PRINCIPAL ===== -->
+      <section class="lg:col-span-2">
+
+        <!-- ===== SECCIÓN: DATOS PERSONALES ===== -->
+        <div id="datos-personales" class="seccion bg-white rounded-2xl shadow p-8">
+          <h2 class="text-2xl font-bold text-primary-dark mb-6">📋 Datos Personales</h2>
+          
+          <div id="datos-cargando" class="text-center py-8">
+            <p class="text-gray-600">Cargando datos...</p>
+          </div>
+
+          <div id="datos-contenido" style="display: none;">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre</label>
+                <input type="text" id="nombre" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Apellido</label>
+                <input type="text" id="apellido" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Cédula</label>
+                <input type="text" id="cedula" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha de Nacimiento</label>
+                <input type="text" id="fecha_nacimiento" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                <input type="email" id="email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Teléfono</label>
+                <input type="tel" id="telefono" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Género</label>
+              <input type="text" id="genero" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+            </div>
+
+            <button onclick="activarEdicion()" class="bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2 rounded-lg transition">
+              ✏️ Editar Datos
+            </button>
+          </div>
+        </div>
+
+        <!-- ===== SECCIÓN: PLAN DE SALUD ===== -->
+        <div id="plan-salud" class="seccion bg-white rounded-2xl shadow p-8" style="display: none;">
+          <h2 class="text-2xl font-bold text-primary-dark mb-6">🏥 Plan de Salud</h2>
+          
+          <div id="plan-cargando" class="text-center py-8">
+            <p class="text-gray-600">Cargando plan de salud...</p>
+          </div>
+
+          <div id="plan-contenido" style="display: none;">
+            <div class="bg-blue-50 rounded-xl p-6 border-l-4 border-primary">
+              <h3 class="text-xl font-bold text-primary-dark mb-2" id="plan-nombre"></h3>
+              <p class="text-gray-700 mb-4" id="plan-descripcion"></p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-lg p-4">
+                  <p class="text-sm text-gray-600 mb-1">Cobertura</p>
+                  <p class="text-2xl font-bold text-primary" id="plan-cobertura"></p>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                  <p class="text-sm text-gray-600 mb-1">Tarifa Empleado</p>
+                  <p class="text-2xl font-bold text-primary" id="plan-tarifa-empleado"></p>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                  <p class="text-sm text-gray-600 mb-1">Tarifa Patronal</p>
+                  <p class="text-2xl font-bold text-primary" id="plan-tarifa-patronal"></p>
+                </div>
+              </div>
+
+              <p class="text-sm text-gray-600 mt-4" id="plan-cobertura-desc"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SECCIÓN: HISTORIAL MÉDICO ===== -->
+        <div id="historial-medico" class="seccion bg-white rounded-2xl shadow p-8" style="display: none;">
+          <h2 class="text-2xl font-bold text-primary-dark mb-6">📑 Historial Médico</h2>
+          
+          <div id="historial-cargando" class="text-center py-8">
+            <p class="text-gray-600">Cargando historial médico...</p>
+          </div>
+
+          <div id="historial-contenido" style="display: none;">
+            <div class="space-y-4">
+              <div class="border-l-4 border-accent bg-green-50 p-4 rounded">
+                <h4 class="font-semibold text-gray-700 mb-2">Alergias</h4>
+                <p id="alergias" class="text-gray-600">No registrado</p>
+              </div>
+
+              <div class="border-l-4 border-accent bg-green-50 p-4 rounded">
+                <h4 class="font-semibold text-gray-700 mb-2">Enfermedades Crónicas</h4>
+                <p id="enfermedades" class="text-gray-600">No registrado</p>
+              </div>
+
+              <div class="border-l-4 border-accent bg-green-50 p-4 rounded">
+                <h4 class="font-semibold text-gray-700 mb-2">Medicamentos Actuales</h4>
+                <p id="medicamentos" class="text-gray-600">No registrado</p>
+              </div>
+
+              <div class="border-l-4 border-accent bg-green-50 p-4 rounded">
+                <h4 class="font-semibold text-gray-700 mb-2">Cirugías Previas</h4>
+                <p id="cirugias" class="text-gray-600">No registrado</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-primary-dark text-white mt-12">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <img src="img/Logo .png" alt="MediSalud" class="h-12 mb-3">
+        <p class="text-blue-200 text-sm">Comprometidos con tu salud y bienestar.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-3">Navegación</h3>
+        <ul class="space-y-2 text-blue-200 text-sm">
+          <li><a href="servicios.html" class="hover:text-white transition">Servicios</a></li>
+          <li><a href="planes.html" class="hover:text-white transition">Planes y Programas</a></li>
+          <li><a href="nosotros.html" class="hover:text-white transition">Nosotros</a></li>
+          <li><a href="contacto.html" class="hover:text-white transition">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-3">Legal</h3>
+        <ul class="space-y-2 text-blue-200 text-sm">
+          <li><a href="privacidad.html" class="hover:text-white transition">Políticas de privacidad</a></li>
+          <li><a href="terminos.html" class="hover:text-white transition">Términos de uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-blue-800 text-center py-4 text-blue-300 text-sm">
+      © 2026 MediSalud. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script>
+    // Verificar sesión al cargar
+    document.addEventListener('DOMContentLoaded', function() {
+      verificarSesion();
+      cargarDatos();
+    });
+
+    // Verificar sesión
+    function verificarSesion() {
+      fetch('conexionBD/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+          const botonesConSesion = document.getElementById('botones-con-sesion');
+          const botonesSinSesion = document.getElementById('botones-sin-sesion');
+          const menuConSesion = document.getElementById('menu-con-sesion');
+          const menuSinSesion = document.getElementById('menu-sin-sesion');
+          const nombreUsuario = document.getElementById('nombre-usuario');
+          const usuarioMenu = document.getElementById('usuario-menu');
+
+          if (data.loggedin) {
+            if (botonesConSesion) botonesConSesion.style.display = 'flex';
+            if (botonesSinSesion) botonesSinSesion.style.display = 'none';
+            if (menuConSesion) menuConSesion.style.display = 'block';
+            if (menuSinSesion) menuSinSesion.style.display = 'none';
+            if (nombreUsuario) nombreUsuario.textContent = data.usuario;
+            if (usuarioMenu) usuarioMenu.textContent = data.usuario;
+          } else {
+            window.location.href = 'login.html';
+          }
+        });
+    }
+
+    // Cargar datos del perfil
+    function cargarDatos() {
+      fetch('conexionBD/get_perfil.php')
+        .then(response => response.json())
+        .then(data => {
+          if (data.exito) {
+            const usuario = data.datos;
+            document.getElementById('nombre').value = usuario.nombre || '';
+            document.getElementById('apellido').value = usuario.apellido || '';
+            document.getElementById('cedula').value = usuario.cedula || '';
+            document.getElementById('fecha_nacimiento').value = usuario.fecha_nacimiento || '';
+            document.getElementById('email').value = usuario.email || '';
+            document.getElementById('telefono').value = usuario.telefono || '';
+            document.getElementById('genero').value = usuario.genero || '';
+
+            // Plan de salud
+            document.getElementById('plan-nombre').textContent = usuario.plan_nombre || 'Sin plan';
+            document.getElementById('plan-descripcion').textContent = usuario.plan_descripcion || '';
+            document.getElementById('plan-cobertura').textContent = (usuario.porcentaje_cobertura || 0) + '%';
+            document.getElementById('plan-tarifa-empleado').textContent = '$' + (usuario.tarifa_empleado || '0.00');
+            document.getElementById('plan-tarifa-patronal').textContent = '$' + (usuario.tarifa_patronal || '0.00');
+            document.getElementById('plan-cobertura-desc').textContent = usuario.cobertura_descripcion || '';
+
+            document.getElementById('datos-cargando').style.display = 'none';
+            document.getElementById('datos-contenido').style.display = 'block';
+            document.getElementById('plan-cargando').style.display = 'none';
+            document.getElementById('plan-contenido').style.display = 'block';
+          }
+        });
+
+      // Cargar historial médico
+      fetch('conexionBD/get_historial_medico.php')
+        .then(response => response.json())
+        .then(data => {
+          if (data.exito) {
+            const historial = data.datos;
+            document.getElementById('alergias').textContent = historial.alergias || 'No registrado';
+            document.getElementById('enfermedades').textContent = historial.enfermedades_cronicas || 'No registrado';
+            document.getElementById('medicamentos').textContent = historial.medicamentos_actuales || 'No registrado';
+            document.getElementById('cirugias').textContent = historial.cirugias_previas || 'No registrado';
+            
+            document.getElementById('historial-cargando').style.display = 'none';
+            document.getElementById('historial-contenido').style.display = 'block';
+          }
+        });
+    }
+
+    // Mostrar sección
+    function mostrarSeccion(seccion) {
+      document.querySelectorAll('.seccion').forEach(s => s.style.display = 'none');
+      document.getElementById(seccion).style.display = 'block';
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-50', 'text-primary', 'font-semibold');
+        btn.classList.add('text-gray-700', 'hover:bg-gray-50', 'font-medium');
+      });
+      event.target.classList.add('bg-blue-50', 'text-primary', 'font-semibold');
+      event.target.classList.remove('text-gray-700', 'hover:bg-gray-50', 'font-medium');
+    }
+
+    // Cerrar sesión
+    function cerrarSesion() {
+      if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+        window.location.href = 'conexionBD/logout.php';
+      }
+    }
+
+    // Toggle menú móvil
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const iconMenu = document.getElementById('icon-menu');
+      const iconClose = document.getElementById('icon-close');
+      
+      menu.classList.toggle('hidden');
+      iconMenu.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    }
+  </script>
+
+</body>
+</html>
