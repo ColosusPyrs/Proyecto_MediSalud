@@ -35,13 +35,6 @@ MediSalud ARS es una plataforma web moderna y responsiva para la gestión de seg
 - Navegador web moderno (Chrome, Firefox, Safari, Edge)
 - Conexión a internet
 
-### Instalación
-
-1. **Clona el repositorio:**
-```bash
-git clone https://github.com/ColosusPyrs/Proyecto_MediSalud.git
-cd Proyecto_MediSalud
-
 ## Tecnologías utilizadas
 
 | Tecnología | Uso |
