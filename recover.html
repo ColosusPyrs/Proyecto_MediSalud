@@ -7,39 +7,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary:  { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
-            accent:   '#4CAF50',
-          }
-        }
-      }
+      theme: { extend: { colors: {
+        primary: { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
+        accent: '#4CAF50'
+      }}}
     }
-
-    document.addEventListener('click', (e) => {
-        const menu = document.getElementById('mobile-menu');
-        const button = document.querySelector('button[onclick="toggleMenu()"]');
-
-        if (menu && button && !menu.contains(e.target) && !button.contains(e.target)) {
-            if (!menu.classList.contains('hidden')) {
-                toggleMenu();
-            }
-        }
-    });
-
-    const links = document.querySelectorAll('#mobile-menu a');
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            toggleMenu();
-        });
-    });
   </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen font-sans">
 
-  <!-- ===== HEADER ===== -->
+  <!-- ===== HEADER (simplificado, sin sesión) ===== -->
   <header class="bg-white shadow-md">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="flex justify-between items-center py-3">
@@ -50,31 +28,11 @@
           <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
           <a href="register.html" class="text-sm font-semibold text-white bg-primary hover:bg-primary-dark px-4 py-1.5 rounded-full transition">Registrarse</a>
         </div>
-        <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition" aria-label="Menú">
-          <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav class="hidden md:flex justify-center gap-8 py-3 border-t border-gray-100">
-        <a href="inicio.html"    class="font-medium text-gray-600 hover:text-primary transition">Inicio</a>
-        <a href="servicios.html" class="font-medium text-gray-600 hover:text-primary transition">Servicios</a>
-        <a href="planes.html"    class="font-medium text-gray-600 hover:text-primary transition">Planes y Programas</a>
-        <a href="nosotros.html"  class="font-medium text-gray-600 hover:text-primary transition">Nosotros</a>
-        <a href="contacto.html"  class="font-medium text-gray-600 hover:text-primary transition">Contacto</a>
-      </nav>
-      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-3 flex flex-col gap-1">
-        <a href="inicio.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Inicio</a>
-        <a href="servicios.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Servicios</a>
-        <a href="planes.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Planes y Programas</a>
-        <a href="nosotros.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Nosotros</a>
-        <a href="contacto.html"  class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Contacto</a>
-        <div class="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100 px-2">
-          <a href="login.html"    class="text-center font-semibold text-primary border border-primary py-2.5 rounded-xl hover:bg-blue-50 transition">Iniciar sesión</a>
-          <a href="register.html" class="text-center font-semibold text-white bg-primary hover:bg-primary-dark py-2.5 rounded-xl transition">Registrarse</a>
-        </div>
       </div>
     </div>
   </header>
+  <!-- ===== FIN HEADER ===== -->
+
 
   <!-- ===== FORMULARIO RECUPERAR CONTRASEÑA ===== -->
   <main class="flex items-center justify-center min-h-[calc(100vh-120px)] px-4 py-16">
@@ -82,50 +40,54 @@
 
       <!-- Icono y título -->
       <div class="flex flex-col items-center mb-8">
-        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-          <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
+          <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
           </svg>
         </div>
         <h2 class="text-2xl font-bold text-primary-dark">Recuperar Contraseña</h2>
-        <p class="text-gray-400 text-sm mt-1">Te enviaremos un enlace para resetear tu contraseña</p>
+        <p class="text-gray-400 text-sm mt-1 text-center">Ingresa tu email y te mostraremos tu contraseña registrada.</p>
       </div>
 
-      <!-- Información -->
-      <p class="text-gray-600 text-center text-sm mb-6">
-        Ingresa el email registrado en tu cuenta y te enviaremos un enlace para que puedas crear una nueva contraseña.
-      </p>
-
-      <!-- Formulario -->
-      <form id="form-recover" onsubmit="recuperarContrasena(event)" class="flex flex-col gap-4">
-        <div>
-          <label class="block text-sm font-semibold text-gray-600 mb-1">Correo Electrónico</label>
-          <input type="email" id="email" name="email" placeholder="tu@email.com"
-            class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
+      <!-- Paso 1: buscar por email -->
+      <div id="paso-1">
+        <div class="flex flex-col gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-1">Correo electrónico</label>
+            <input type="email" id="recover-email" placeholder="tu@email.com"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm">
+          </div>
+          <button onclick="buscarCuenta()"
+            class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition shadow-md">
+            Buscar cuenta
+          </button>
+          <div id="msg-recover" style="display:none;"></div>
         </div>
+      </div>
 
-        <button type="submit"
-          class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition shadow-md mt-2">
-          Enviar Enlace
-        </button>
+      <!-- Paso 2: mostrar contraseña encontrada -->
+      <div id="paso-2" style="display:none;" class="flex flex-col gap-4 text-center">
+        <div class="bg-green-50 border border-green-200 rounded-xl p-5">
+          <p class="text-sm text-gray-500 mb-1">Cuenta encontrada para</p>
+          <p id="resultado-email"  class="font-semibold text-gray-700 text-sm mb-3"></p>
+          <p class="text-sm text-gray-500 mb-1">Tu contraseña es</p>
+          <p id="resultado-password" class="text-xl font-bold text-primary-dark tracking-widest"></p>
+        </div>
+        <a href="login.html" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition shadow-md text-center block">
+          Ir a iniciar sesión
+        </a>
+      </div>
 
-        <!-- Mensaje de respuesta -->
-        <div id="msg-recover" class="mensaje" style="display:none;"></div>
-      </form>
-
-      <!-- Enlaces de navegación -->
+      <!-- Enlace volver -->
       <p class="text-center text-sm text-gray-500 mt-6">
-        <a href="login.html" class="text-primary font-semibold hover:underline">Volver al inicio de sesión</a>
-      </p>
-
-      <p class="text-center text-sm text-gray-500 mt-2">
-        ¿No tienes cuenta?
-        <a href="register.html" class="text-primary font-semibold hover:underline">Regístrate aquí</a>
+        <a href="login.html" class="text-primary font-semibold hover:underline">← Volver al inicio de sesión</a>
       </p>
 
     </div>
   </main>
+  <!-- ===== FIN FORMULARIO ===== -->
+
 
   <!-- ===== FOOTER ===== -->
   <footer class="bg-primary-dark text-white">
@@ -137,49 +99,64 @@
       </div>
     </div>
   </footer>
+  <!-- ===== FIN FOOTER ===== -->
+
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+
+    /* -------------------------------------------------------
+       BUSCAR CUENTA POR EMAIL
+       Busca en ms_usuarios el email introducido.
+       Si lo encuentra, muestra la contraseña guardada.
+       (En producción real nunca se mostraría la contraseña
+        en texto plano; aquí es aceptable al ser LocalStorage.)
+    ------------------------------------------------------- */
+    function buscarCuenta() {
+      const email    = document.getElementById('recover-email').value.trim();
+      const msgDiv   = document.getElementById('msg-recover');
+
+      if (!email) {
+        mostrarMensaje(msgDiv, 'Por favor, ingresa tu correo electrónico.', 'error');
+        return;
+      }
+
+      const usuarios  = JSON.parse(localStorage.getItem('ms_usuarios') || '[]');
+      const encontrado = usuarios.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+      if (encontrado) {
+        // Ocultar paso 1 y mostrar paso 2 con los datos
+        document.getElementById('paso-1').style.display           = 'none';
+        document.getElementById('paso-2').style.display           = 'flex';
+        document.getElementById('resultado-email').textContent    = encontrado.email;
+        document.getElementById('resultado-password').textContent = encontrado.password;
+      } else {
+        mostrarMensaje(msgDiv, 'No encontramos ninguna cuenta con ese correo.', 'error');
+      }
+    }
+
+    /* -------------------------------------------------------
+       MOSTRAR MENSAJE DE ERROR
+    ------------------------------------------------------- */
+    function mostrarMensaje(elemento, texto, tipo) {
+      elemento.textContent      = texto;
+      elemento.style.display    = 'block';
+      elemento.style.color      = tipo === 'error' ? '#e53e3e' : '#4CAF50';
+      elemento.style.fontWeight = '600';
+      elemento.style.fontSize   = '0.875rem';
+      elemento.style.marginTop  = '4px';
+    }
+
+    /* -------------------------------------------------------
+       PERMITIR BUSCAR CON LA TECLA ENTER
+    ------------------------------------------------------- */
+    document.getElementById('recover-email').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') buscarCuenta();
+    });
+
+  </script>
+  <!-- ===== FIN JAVASCRIPT ===== -->
 
   <script src="main.js"></script>
-  <script>
-    function recuperarContrasena(event) {
-      event.preventDefault();
-      
-      const formData = new FormData();
-      formData.append('email', document.getElementById('email').value);
-      
-      fetch('conexionBD/recover_password.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.exito) {
-          mostrarMensaje('msg-recover', data.mensaje, 'exito');
-          document.getElementById('form-recover').reset();
-        } else {
-          mostrarMensaje('msg-recover', data.mensaje, 'error');
-        }
-      })
-      .catch(error => {
-        mostrarMensaje('msg-recover', 'Error en la solicitud: ' + error, 'error');
-      });
-    }
-
-    function mostrarMensaje(id, texto, tipo) {
-      const el = document.getElementById(id);
-      el.textContent = texto;
-      el.className = 'mensaje ' + tipo;
-      el.style.display = 'block';
-    }
-
-    function toggleMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const iconMenu = document.getElementById('icon-menu');
-      const iconClose = document.getElementById('icon-close');
-      
-      menu.classList.toggle('hidden');
-      iconMenu.classList.toggle('hidden');
-      iconClose.classList.toggle('hidden');
-    }
-  </script>
 </body>
 </html>

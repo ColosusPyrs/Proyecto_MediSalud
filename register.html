@@ -1,47 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- ===== META Y TÍTULO ===== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrarse – MediSalud</title>
+
+  <!-- ===== TAILWIND CSS (CDN) ===== -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary:  { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
-            accent:   '#4CAF50',
+            primary: { DEFAULT: '#1F6FB5', dark: '#0F4C81', light: '#6EC1FF' },
+            accent:  '#4CAF50',
           }
         }
       }
     }
-
-    document.addEventListener('click', (e) => {
-        const menu = document.getElementById('mobile-menu');
-        const button = document.querySelector('button[onclick="toggleMenu()"]');
-
-        if (menu && button && !menu.contains(e.target) && !button.contains(e.target)) {
-            if (!menu.classList.contains('hidden')) {
-                toggleMenu();
-            }
-        }
-    });
-
-    const links = document.querySelectorAll('#mobile-menu a');
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            toggleMenu();
-        });
-    });
   </script>
+
+  <!-- ===== HOJA DE ESTILOS EXTERNA ===== -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen font-sans">
 
   <!-- ===== HEADER ===== -->
   <header class="bg-white shadow-md">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
+
+      <!-- Logo + botones escritorio -->
       <div class="flex justify-between items-center py-3">
         <a href="inicio.html">
           <img src="img/Logo .png" alt="MediSalud" class="h-14 md:h-20 object-contain">
@@ -50,11 +40,15 @@
           <a href="login.html"    class="text-sm font-semibold text-primary border border-primary px-4 py-1.5 rounded-full hover:bg-blue-50 transition">Iniciar sesión</a>
           <a href="register.html" class="text-sm font-semibold text-white bg-primary px-4 py-1.5 rounded-full">Registrarse</a>
         </div>
+
+        <!-- Botón hamburguesa (móvil) -->
         <button onclick="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition" aria-label="Menú">
-          <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="icon-menu"  class="w-6 h-6"        fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
+
+      <!-- Navegación escritorio -->
       <nav class="hidden md:flex justify-center gap-8 py-3 border-t border-gray-100">
         <a href="inicio.html"    class="font-medium text-gray-600 hover:text-primary transition">Inicio</a>
         <a href="servicios.html" class="font-medium text-gray-600 hover:text-primary transition">Servicios</a>
@@ -62,6 +56,8 @@
         <a href="nosotros.html"  class="font-medium text-gray-600 hover:text-primary transition">Nosotros</a>
         <a href="contacto.html"  class="font-medium text-gray-600 hover:text-primary transition">Contacto</a>
       </nav>
+
+      <!-- Menú móvil desplegable -->
       <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 py-3 flex flex-col gap-1">
         <a href="inicio.html"    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Inicio</a>
         <a href="servicios.html" class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-primary rounded-xl font-medium transition">Servicios</a>
@@ -73,10 +69,13 @@
           <a href="register.html" class="text-center font-semibold text-white bg-primary py-2.5 rounded-xl">Registrarse</a>
         </div>
       </div>
+
     </div>
   </header>
+  <!-- ===== FIN HEADER ===== -->
 
-  <!-- ===== FORMULARIO REGISTRO ===== -->
+
+  <!-- ===== FORMULARIO DE REGISTRO ===== -->
   <main class="flex items-center justify-center px-4 py-16">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-10">
 
@@ -92,57 +91,63 @@
         <p class="text-gray-400 text-sm mt-1">Únete a MediSalud y protege tu salud</p>
       </div>
 
-      <!-- Formulario -->
+      <!-- Campos del formulario -->
       <form id="form-registro" onsubmit="registrarUsuario(event)" class="flex flex-col gap-4">
 
+        <!-- Nombre y Apellido -->
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-semibold text-gray-600 mb-1">Nombre</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre"
+            <input type="text" id="nombre" placeholder="Tu nombre"
               class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
           </div>
           <div>
             <label class="block text-sm font-semibold text-gray-600 mb-1">Apellido</label>
-            <input type="text" id="apellido" name="apellido" placeholder="Tu apellido"
+            <input type="text" id="apellido" placeholder="Tu apellido"
               class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
           </div>
         </div>
 
+        <!-- Cédula -->
         <div>
           <label class="block text-sm font-semibold text-gray-600 mb-1">Cédula</label>
-          <input type="text" id="cedula" name="cedula" placeholder="001-1234567-8"
+          <input type="text" id="cedula" placeholder="001-1234567-8"
             class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
         </div>
 
+        <!-- Email -->
         <div>
           <label class="block text-sm font-semibold text-gray-600 mb-1">Email</label>
-          <input type="email" id="email" name="email" placeholder="tu@email.com"
+          <input type="email" id="email" placeholder="tu@email.com"
             class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
         </div>
 
+        <!-- Usuario -->
         <div>
           <label class="block text-sm font-semibold text-gray-600 mb-1">Usuario</label>
-          <input type="text" id="usuario" name="usuario" placeholder="Elige un nombre de usuario"
+          <input type="text" id="usuario" placeholder="Elige un nombre de usuario"
             class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
         </div>
 
+        <!-- Contraseña -->
         <div>
           <label class="block text-sm font-semibold text-gray-600 mb-1">Contraseña</label>
-          <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres"
+          <input type="password" id="password" placeholder="Mínimo 6 caracteres"
             class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition text-sm" required>
         </div>
 
+        <!-- Botón registrar -->
         <button type="submit"
           class="w-full bg-accent hover:bg-green-600 text-white font-bold py-3 rounded-xl transition shadow-md mt-2">
           Crear cuenta
         </button>
 
-        <!-- Mensaje de respuesta -->
+        <!-- Mensaje de respuesta (éxito o error) -->
         <div id="msg-registro" class="mensaje" style="display:none;"></div>
 
       </form>
 
-      <!-- Enlace login -->
+      <!-- Enlace a login -->
       <p class="text-center text-sm text-gray-500 mt-6">
         ¿Ya tienes cuenta?
         <a href="login.html" class="text-primary font-semibold hover:underline">Inicia sesión aquí</a>
@@ -150,6 +155,8 @@
 
     </div>
   </main>
+  <!-- ===== FIN FORMULARIO DE REGISTRO ===== -->
+
 
   <!-- ===== FOOTER ===== -->
   <footer class="bg-primary-dark text-white">
@@ -161,55 +168,138 @@
       </div>
     </div>
   </footer>
+  <!-- ===== FIN FOOTER ===== -->
 
-  <script src="main.js"></script>
+
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    function registrarUsuario(event) {
-      event.preventDefault();
-      
-      const formData = new FormData();
-      formData.append('nombre', document.getElementById('nombre').value);
-      formData.append('apellido', document.getElementById('apellido').value);
-      formData.append('cedula', document.getElementById('cedula').value);
-      formData.append('email', document.getElementById('email').value);
-      formData.append('usuario', document.getElementById('usuario').value);
-      formData.append('password', document.getElementById('password').value);
-      
-      fetch('conexionBD/register_process.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.exito) {
-          mostrarMensaje('msg-registro', data.mensaje, 'exito');
-          document.getElementById('form-registro').reset();
-          setTimeout(() => window.location.href = 'login.html', 2000);
-        } else {
-          mostrarMensaje('msg-registro', data.mensaje, 'error');
-        }
-      })
-      .catch(error => {
-        mostrarMensaje('msg-registro', 'Error en la solicitud: ' + error, 'error');
-      });
-    }
 
-    function mostrarMensaje(id, texto, tipo) {
-      const el = document.getElementById(id);
-      el.textContent = texto;
-      el.className = 'mensaje ' + tipo;
-      el.style.display = 'block';
-    }
-
+    /* -------------------------------------------------------
+       MENÚ MÓVIL
+       Alterna visibilidad del menú y los íconos hamburguesa/X
+    ------------------------------------------------------- */
     function toggleMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const iconMenu = document.getElementById('icon-menu');
+      const menu      = document.getElementById('mobile-menu');
+      const iconMenu  = document.getElementById('icon-menu');
       const iconClose = document.getElementById('icon-close');
-      
+
       menu.classList.toggle('hidden');
       iconMenu.classList.toggle('hidden');
       iconClose.classList.toggle('hidden');
     }
+
+    // Cerrar el menú al hacer clic fuera de él
+    document.addEventListener('click', (e) => {
+      const menu   = document.getElementById('mobile-menu');
+      const button = document.querySelector('button[onclick="toggleMenu()"]');
+
+      if (menu && button && !menu.contains(e.target) && !button.contains(e.target)) {
+        if (!menu.classList.contains('hidden')) toggleMenu();
+      }
+    });
+
+    // Cerrar el menú al hacer clic en un enlace interno
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => toggleMenu());
+    });
+
+
+    /* -------------------------------------------------------
+       REGISTRO CON LOCALSTORAGE
+       Reemplaza el fetch a register_process.php
+
+       Estructura de datos en LocalStorage:
+       · "ms_usuarios" → array JSON con todos los usuarios registrados
+         Cada usuario: { nombre, apellido, cedula, email, usuario, password, fecha }
+
+       Validaciones aplicadas:
+       · Todos los campos obligatorios
+       · Email con formato válido
+       · Contraseña mínimo 6 caracteres
+       · Usuario y email únicos (no duplicados)
+    ------------------------------------------------------- */
+    function registrarUsuario(event) {
+      event.preventDefault();
+
+      // Recoger valores del formulario
+      const nombre   = document.getElementById('nombre').value.trim();
+      const apellido = document.getElementById('apellido').value.trim();
+      const cedula   = document.getElementById('cedula').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const usuario  = document.getElementById('usuario').value.trim();
+      const password = document.getElementById('password').value;
+
+      // --- Validaciones básicas ---
+      if (!nombre || !apellido || !cedula || !email || !usuario || !password) {
+        mostrarMensaje('msg-registro', 'Por favor, completa todos los campos.', 'error');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        mostrarMensaje('msg-registro', 'Introduce un correo electrónico válido.', 'error');
+        return;
+      }
+      if (password.length < 6) {
+        mostrarMensaje('msg-registro', 'La contraseña debe tener al menos 6 caracteres.', 'error');
+        return;
+      }
+
+      // --- Leer usuarios ya registrados en LocalStorage ---
+      const usuarios = JSON.parse(localStorage.getItem('ms_usuarios') || '[]');
+
+      // Comprobar que el usuario o email no estén ya en uso
+      const usuarioExiste = usuarios.find(u => u.usuario.toLowerCase() === usuario.toLowerCase());
+      if (usuarioExiste) {
+        mostrarMensaje('msg-registro', 'Ese nombre de usuario ya está en uso. Elige otro.', 'error');
+        return;
+      }
+      const emailExiste = usuarios.find(u => u.email.toLowerCase() === email.toLowerCase());
+      if (emailExiste) {
+        mostrarMensaje('msg-registro', 'Ese correo electrónico ya está registrado.', 'error');
+        return;
+      }
+
+      // --- Guardar el nuevo usuario ---
+      usuarios.push({
+        nombre,
+        apellido,
+        cedula,
+        email,
+        usuario,
+        password,           // Nota: en producción real se debería hashear
+        fecha: new Date().toISOString()
+      });
+      localStorage.setItem('ms_usuarios', JSON.stringify(usuarios));
+
+      // --- Confirmar al usuario y redirigir al login ---
+      mostrarMensaje('msg-registro', '¡Cuenta creada con éxito! Redirigiendo al inicio de sesión…', 'exito');
+      document.getElementById('form-registro').reset();
+      setTimeout(() => window.location.href = 'login.html', 2000);
+    }
+
+
+    /* -------------------------------------------------------
+       MOSTRAR MENSAJE
+       Muestra un aviso de éxito o error debajo del formulario
+       y lo oculta automáticamente pasados 5 segundos
+    ------------------------------------------------------- */
+    function mostrarMensaje(id, texto, tipo) {
+      const el = document.getElementById(id);
+      el.textContent      = texto;
+      el.className        = 'mensaje ' + tipo;
+      el.style.display    = 'block';
+      el.style.fontWeight = '600';
+      el.style.marginTop  = '8px';
+      el.style.color      = tipo === 'exito' ? '#4CAF50' : '#e53e3e';
+
+      // Auto-ocultar tras 5 segundos
+      setTimeout(() => { el.style.display = 'none'; }, 5000);
+    }
+
   </script>
+  <!-- ===== FIN JAVASCRIPT ===== -->
+
+  <!-- Script externo (main.js) — debe también trabajar sin PHP/backend -->
+  <script src="main.js"></script>
+
 </body>
 </html>
