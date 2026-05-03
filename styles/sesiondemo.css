@@ -1,9 +1,14 @@
+/* ===================================================
+   MEDISALUD — sesiondemo.css
+   =================================================== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* body como columna completa: navbar → layout → footer */
 html, body {
   height: 100%;
 }
@@ -11,27 +16,38 @@ html, body {
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
+  background-color: #f8f9fa;
   display: flex;
   flex-direction: column;
-  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
+/* =====================
+   NAVBAR
+   ===================== */
 .navbar {
   background: linear-gradient(90deg, #0056b3, #28a745);
   padding: 1rem 0;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo {
@@ -49,7 +65,7 @@ body {
 .nav-links a {
   color: white;
   text-decoration: none;
-  transition: 0.3s;
+  transition: color 0.3s;
 }
 
 .nav-links a:hover,
@@ -57,6 +73,7 @@ body {
   color: #ffc107;
 }
 
+/* Hamburguesa del navbar — solo en móvil */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -71,30 +88,203 @@ body {
   transition: 0.3s;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  flex: 1;
-  width: 100%;
+/* =====================
+   SIDEBAR TOGGLE
+   Oculto en desktop (> 900 px).
+   Solo aparece en tablet / móvil.
+   ===================== */
+.sidebar-toggle {
+  display: none;                  /* ← OCULTO en PC */
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 7px 9px;
+  transition: background 0.2s;
 }
 
+.sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.sidebar-toggle span {
+  display: block;
+  width: 22px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* =====================
+   LAYOUT: SIDEBAR + MAIN
+   ===================== */
+.layout {
+  display: flex;
+  flex: 1;          /* ocupa todo el espacio entre navbar y footer */
+  position: relative;
+  min-height: 0;
+}
+
+/* =====================
+   SIDEBAR
+   ===================== */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: linear-gradient(180deg, #0056b3 0%, #003d80 100%);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.12);
+  position: sticky;
+  top: 64px;                    /* altura del navbar */
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  z-index: 150;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.5rem 1.2rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #28a745;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-user-info {
+  overflow: hidden;
+}
+
+.sidebar-user-name {
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-user-plan {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+}
+
+.sidebar-nav li {
+  margin: 2px 0;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.4rem;
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  font-size: 0.97rem;
+  transition: background 0.2s, color 0.2s, border-left 0.2s;
+  border-left: 3px solid transparent;
+  border-radius: 0 8px 8px 0;
+  margin-right: 0.5rem;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-left-color: #ffc107;
+}
+
+.sidebar-link.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-weight: 600;
+  border-left-color: #28a745;
+}
+
+.sidebar-icon {
+  font-size: 0.65rem;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+/* =====================
+   OVERLAY MÓVIL
+   ===================== */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 140;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* =====================
+   MAIN CONTENT
+   ===================== */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* =====================
+   DASHBOARD HEADER
+   ===================== */
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #28a745;
   background: white;
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #28a745;
 }
 
-.dashboard-header h2 {
+.dashboard-header-left h2 {
   color: #0056b3;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+}
+
+.dashboard-subtitle {
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
 }
 
 .btn-logout {
@@ -104,21 +294,78 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .btn-logout:hover {
   background-color: #c82333;
 }
 
-.dashboard-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+/* =====================
+   SECCIONES (mostrar/ocultar)
+   ===================== */
+.dash-section {
+  display: none;
 }
 
+.dash-section.active {
+  display: block;
+}
+
+/* margen entre bloques dentro de una sección */
+.mt {
+  margin-top: 1.5rem;
+}
+
+/* =====================
+   KPI GRID
+   ===================== */
+.resumen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+/* =====================
+   STAT CARDS
+   ===================== */
+.stat-card {
+  background: linear-gradient(135deg, #0056b3, #004494);
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 86, 179, 0.2);
+}
+
+.stat-card.accent {
+  background: linear-gradient(135deg, #28a745, #1e7e34);
+  box-shadow: 0 2px 10px rgba(40, 167, 69, 0.2);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  opacity: 0.6;
+  margin-bottom: 0.3rem;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* =====================
+   DASHBOARD SECTION (tarjeta blanca)
+   ===================== */
 .dashboard-section {
   background: white;
   padding: 2rem;
@@ -127,18 +374,16 @@ body {
   border-left: 4px solid #28a745;
 }
 
-.dashboard-section.full-width {
-  grid-column: 1 / -1;
-}
-
 .dashboard-section h3 {
   color: #0056b3;
   margin-bottom: 1.5rem;
   font-size: 1.3rem;
 }
 
+/* =====================
+   DATA TABLE (Mis Datos)
+   ===================== */
 .data-table {
-  background: white;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -158,7 +403,7 @@ body {
 .data-row span:first-child {
   font-weight: bold;
   color: #0056b3;
-  min-width: 150px;
+  min-width: 160px;
 }
 
 .data-row span:last-child {
@@ -166,11 +411,24 @@ body {
   text-align: right;
 }
 
-#records-container {
+.badge-activo {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* =====================
+   RECORD ITEMS
+   ===================== */
+#historial-container,
+#resumen-recientes {
   background: #f8f9fa;
   padding: 1rem;
   border-radius: 5px;
-  max-height: 400px;
+  max-height: 520px;
   overflow-y: auto;
 }
 
@@ -183,6 +441,10 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+.record-item:last-child {
+  margin-bottom: 0;
+}
+
 .record-header {
   display: flex;
   justify-content: space-between;
@@ -193,7 +455,7 @@ body {
 .record-type {
   font-weight: bold;
   color: #28a745;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .record-date {
@@ -219,9 +481,32 @@ body {
 .record-cost {
   color: #0056b3;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
+.record-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Botón Editar — amarillo */
+.edit-btn {
+  background-color: #ffc107;
+  color: #212529;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Botón Eliminar — rojo */
 .delete-btn {
   background-color: #dc3545;
   color: white;
@@ -229,14 +514,24 @@ body {
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  transition: 0.3s;
   font-size: 0.9rem;
+  transition: background 0.3s;
 }
 
 .delete-btn:hover {
   background-color: #c82333;
 }
 
+/* Mensaje vacío */
+.empty-msg {
+  color: #888;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+/* =====================
+   FORMULARIO
+   ===================== */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -280,50 +575,178 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s;
   font-weight: bold;
   font-size: 1rem;
   width: 100%;
-  grid-column: 1 / -1;
 }
 
 .btn-green:hover {
   background-color: #218838;
 }
 
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
+/* =====================
+   HISTORIAL FILTROS
+   ===================== */
+.historial-filters {
+  margin-bottom: 1.2rem;
 }
 
-.stat-card {
-  background: linear-gradient(135deg, #0056b3, #004494);
-  color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 86, 179, 0.2);
-}
-
-.stat-number {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
+.historial-filters select {
+  padding: 0.7rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: inherit;
   font-size: 0.95rem;
-  opacity: 0.9;
+  color: #0056b3;
+  cursor: pointer;
 }
 
+.historial-filters select:focus {
+  outline: none;
+  border-color: #0056b3;
+}
+
+/* =====================
+   GRÁFICO DE BARRAS
+   ===================== */
+.chart-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.chart-bar-label {
+  min-width: 140px;
+  font-size: 0.9rem;
+  color: #0056b3;
+  font-weight: 600;
+}
+
+.chart-bar-track {
+  flex: 1;
+  background: #e9ecef;
+  border-radius: 20px;
+  height: 18px;
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0056b3, #28a745);
+  border-radius: 20px;
+  transition: width 0.5s ease;
+}
+
+.chart-bar-count {
+  min-width: 80px;
+  font-size: 0.85rem;
+  color: #666;
+  text-align: right;
+}
+
+/* =====================
+   MODAL EDICIÓN
+   ===================== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 620px;
+  margin: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border-top: 4px solid #0056b3;
+}
+
+.modal h3 {
+  color: #0056b3;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-cancel {
+  background: #6c757d;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+  background: #5a6268;
+}
+
+/* El btn-green dentro del modal no debe ser ancho total */
+.btn-modal-save {
+  width: auto !important;
+  padding: 0.8rem 1.8rem !important;
+}
+
+/* =====================
+   FOOTER — siempre pegado al fondo
+   ===================== */
 .footer {
   background: linear-gradient(90deg, #0056b3, #28a745);
   color: white;
   text-align: center;
   padding: 2rem;
-  margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;         /* no se encoge nunca */
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+
+/* Tablet / Móvil: activar el botón toggle del sidebar */
+@media (max-width: 900px) {
+  .sidebar-toggle {
+    display: flex;          /* aparece el botón de las 3 rayas */
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    z-index: 160;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    padding: 1.2rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -336,6 +759,7 @@ body {
     background: linear-gradient(90deg, #0056b3, #28a745);
     flex-direction: column;
     padding: 1rem 0;
+    z-index: 190;
   }
 
   .nav-links.active {
@@ -356,12 +780,8 @@ body {
     text-align: center;
   }
 
-  .dashboard-header h2 {
-    font-size: 1.3rem;
-  }
-
-  .dashboard-content {
-    grid-template-columns: 1fr;
+  .dashboard-header-left h2 {
+    font-size: 1.2rem;
   }
 
   .form-row {
@@ -370,11 +790,48 @@ body {
 
   .data-row {
     flex-direction: column;
-    text-align: left;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 0.4rem;
   }
 
   .data-row span:last-child {
     text-align: left;
+  }
+
+  .resumen-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .chart-bar-label {
+    min-width: 100px;
+    font-size: 0.8rem;
+  }
+
+  .modal {
+    padding: 1.5rem;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .resumen-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .record-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
 }

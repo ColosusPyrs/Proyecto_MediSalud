@@ -7,9 +7,17 @@
   <link rel="stylesheet" href="styles/sesiondemo.css">
 </head>
 <body>
+
+  <!-- ===== NAVBAR ===== -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="logo">MediSalud ARS</div>
+      <div class="nav-left">
+        <!-- Visible SOLO en móvil/tablet mediante CSS -->
+        <button class="sidebar-toggle" id="sidebar-toggle-btn" onclick="toggleSidebar()" title="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="logo">MediSalud ARS</div>
+      </div>
       <ul class="nav-links">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="servicios.html">Servicios</a></li>
@@ -19,122 +27,257 @@
         <li><a href="sesiondemo.html" class="active">Sesión Demo</a></li>
       </ul>
       <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </div>
     </div>
   </nav>
 
-  <div class="container">
-    <div class="dashboard-header">
-      <h2>Bienvenido, <span id="user-name">Demo User</span></h2>
-      <button onclick="handleLogout()" class="btn-logout">Cerrar Sesión</button>
-    </div>
+  <!-- ===== LAYOUT SIDEBAR + MAIN ===== -->
+  <div class="layout">
 
-    <div class="dashboard-content">
-      <section class="dashboard-section">
-        <h3>Mis Datos</h3>
-        <div class="data-table">
-          <div class="data-row">
-            <span>Nombre:</span>
-            <span id="dash-nombre">Juan Demo</span>
-          </div>
-          <div class="data-row">
-            <span>Email:</span>
-            <span id="dash-email">demo@medisalud.com</span>
-          </div>
-          <div class="data-row">
-            <span>Teléfono:</span>
-            <span id="dash-telefono">+1 (809) 555-0123</span>
-          </div>
-          <div class="data-row">
-            <span>Plan:</span>
-            <span id="dash-plan">Plan Estándar</span>
-          </div>
-          <div class="data-row">
-            <span>Estado:</span>
-            <span id="dash-estado">Activo</span>
-          </div>
-          <div class="data-row">
-            <span>Fecha de Afiliación:</span>
-            <span id="dash-fecha">01/01/2023</span>
-          </div>
+    <!-- SIDEBAR — sin botón de logout aquí -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar" id="sidebar-avatar">JD</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="sidebar-user-name">Juan Demo</div>
+          <div class="sidebar-user-plan" id="sidebar-user-plan">Plan Estándar</div>
         </div>
-      </section>
+      </div>
 
-      <section class="dashboard-section">
-        <h3>Mis Registros Médicos</h3>
-        <div id="records-container">
-          <p>No hay registros aún.</p>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="#" class="sidebar-link active" onclick="showSection('resumen-estadisticas', this)">
+              <span class="sidebar-icon">&#9632;</span>
+              Resumen de Estadísticas
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar-link" onclick="showSection('agregar', this)">
+              <span class="sidebar-icon">&#9632;</span>
+              Agregar Registro
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar-link" onclick="showSection('historial-medico', this)">
+              <span class="sidebar-icon">&#9632;</span>
+              Historial Médico
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar-link" onclick="showSection('mis-datos', this)">
+              <span class="sidebar-icon">&#9632;</span>
+              Mis Datos
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Overlay para cerrar sidebar en móvil -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- ===== MAIN ===== -->
+    <main class="main-content" id="main-content">
+
+      <!-- Header — ÚNICO lugar con el botón Cerrar Sesión -->
+      <div class="dashboard-header">
+        <div class="dashboard-header-left">
+          <h2>Bienvenido, <span id="user-name">Demo User</span></h2>
+          <p class="dashboard-subtitle" id="dashboard-subtitle">Resumen de estadísticas</p>
         </div>
-      </section>
+        <button onclick="handleLogout()" class="btn-logout">Cerrar Sesión</button>
+      </div>
 
-      <section class="dashboard-section full-width">
-        <h3>Agregar Nuevo Registro Médico</h3>
-        <form onsubmit="handleAddRecord(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="record-type">Tipo de Servicio</label>
-              <select id="record-type" required>
-                <option value="">Selecciona tipo</option>
-                <option value="Consulta Médica">Consulta Médica</option>
-                <option value="Laboratorio">Laboratorio</option>
-                <option value="Farmacia">Farmacia</option>
-                <option value="Cirugía">Cirugía</option>
-                <option value="Odontología">Odontología</option>
-                <option value="Emergencia">Emergencia</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="record-date">Fecha</label>
-              <input type="date" id="record-date" required>
-            </div>
-          </div>
+      <!-- ======= SECCIÓN 1: RESUMEN DE ESTADÍSTICAS ======= -->
+      <section class="dash-section active" id="section-resumen-estadisticas">
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="record-description">Descripción</label>
-              <input type="text" id="record-description" placeholder="Describe el servicio recibido" required>
-            </div>
-            <div class="form-group">
-              <label for="record-cost">Costo (RD$)</label>
-              <input type="number" id="record-cost" placeholder="Costo del servicio" step="0.01" required>
-            </div>
-          </div>
-
-          <button type="submit" class="btn-green">Agregar Registro</button>
-        </form>
-      </section>
-
-      <section class="dashboard-section full-width">
-        <h3>Estadísticas</h3>
-        <div class="stats-container">
+        <!-- #1: KPIs -->
+        <div class="resumen-grid">
           <div class="stat-card">
-            <div class="stat-number" id="total-registros">0</div>
+            <div class="stat-icon">&#9829;</div>
+            <div class="stat-number" id="resumen-registros">0</div>
             <div class="stat-label">Total de Registros</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-number" id="total-costo">RD$ 0.00</div>
+          <div class="stat-card accent">
+            <div class="stat-icon">&#36;</div>
+            <div class="stat-number" id="resumen-costo">RD$ 0.00</div>
             <div class="stat-label">Costo Total</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number" id="promedio-costo">RD$ 0.00</div>
+            <div class="stat-icon">&#126;</div>
+            <div class="stat-number" id="resumen-promedio">RD$ 0.00</div>
             <div class="stat-label">Costo Promedio</div>
+          </div>
+          <div class="stat-card accent">
+            <div class="stat-icon">&#9733;</div>
+            <div class="stat-number" id="resumen-plan">Plan Estándar</div>
+            <div class="stat-label">Tu Plan Actual</div>
+          </div>
+        </div>
+
+        <!-- #2: Distribución por tipo de servicio -->
+        <div class="dashboard-section mt">
+          <h3>Distribución por Tipo de Servicio</h3>
+          <div id="stats-chart-container">
+            <p class="empty-msg">No hay datos para mostrar.</p>
+          </div>
+        </div>
+
+        <!-- #3: Actividad reciente -->
+        <div class="dashboard-section mt">
+          <h3>Actividad Reciente</h3>
+          <div id="resumen-recientes">
+            <p class="empty-msg">No hay registros aún.</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ======= SECCIÓN 2: AGREGAR REGISTRO ======= -->
+      <section class="dash-section" id="section-agregar">
+        <div class="dashboard-section">
+          <h3>Agregar Nuevo Registro Médico</h3>
+          <form onsubmit="handleAddRecord(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="record-type">Tipo de Servicio</label>
+                <select id="record-type" required>
+                  <option value="">Selecciona tipo</option>
+                  <option value="Consulta Médica">Consulta Médica</option>
+                  <option value="Laboratorio">Laboratorio</option>
+                  <option value="Farmacia">Farmacia</option>
+                  <option value="Cirugía">Cirugía</option>
+                  <option value="Odontología">Odontología</option>
+                  <option value="Emergencia">Emergencia</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="record-date">Fecha</label>
+                <input type="date" id="record-date" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="record-description">Descripción</label>
+                <input type="text" id="record-description" placeholder="Describe el servicio recibido" required>
+              </div>
+              <div class="form-group">
+                <label for="record-cost">Costo (RD$)</label>
+                <input type="number" id="record-cost" placeholder="Costo del servicio" step="0.01" required>
+              </div>
+            </div>
+            <button type="submit" class="btn-green">Agregar Registro</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ======= SECCIÓN 3: HISTORIAL MÉDICO (CRUD) ======= -->
+      <section class="dash-section" id="section-historial-medico">
+        <div class="dashboard-section">
+          <h3>Historial Médico</h3>
+          <div class="historial-filters">
+            <select id="historial-tipo" onchange="filtrarHistorial()">
+              <option value="">Todos los tipos</option>
+              <option value="Consulta Médica">Consulta Médica</option>
+              <option value="Laboratorio">Laboratorio</option>
+              <option value="Farmacia">Farmacia</option>
+              <option value="Cirugía">Cirugía</option>
+              <option value="Odontología">Odontología</option>
+              <option value="Emergencia">Emergencia</option>
+            </select>
+          </div>
+          <div id="historial-container">
+            <p class="empty-msg">No hay registros en el historial.</p>
           </div>
         </div>
       </section>
-    </div>
+
+      <!-- ======= SECCIÓN 4: MIS DATOS ======= -->
+      <section class="dash-section" id="section-mis-datos">
+        <div class="dashboard-section">
+          <h3>Mis Datos Personales</h3>
+          <div class="data-table">
+            <div class="data-row">
+              <span>Nombre:</span>
+              <span id="dash-nombre">Juan Demo</span>
+            </div>
+            <div class="data-row">
+              <span>Email:</span>
+              <span id="dash-email">demo@medisalud.com</span>
+            </div>
+            <div class="data-row">
+              <span>Teléfono:</span>
+              <span id="dash-telefono">+1 (809) 555-0123</span>
+            </div>
+            <div class="data-row">
+              <span>Plan:</span>
+              <span id="dash-plan">Plan Estándar</span>
+            </div>
+            <div class="data-row">
+              <span>Estado:</span>
+              <span id="dash-estado" class="badge-activo">Activo</span>
+            </div>
+            <div class="data-row">
+              <span>Fecha de Afiliación:</span>
+              <span id="dash-fecha">01/01/2023</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
   </div>
 
+  <!-- ===== FOOTER siempre al fondo ===== -->
   <footer class="footer">
     <p>&copy; 2026 MediSalud ARS. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- ===== MODAL EDICIÓN ===== -->
+  <div class="modal-overlay" id="modal-overlay" onclick="cerrarModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3>Editar Registro</h3>
+      <input type="hidden" id="edit-id">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="edit-type">Tipo de Servicio</label>
+          <select id="edit-type">
+            <option value="Consulta Médica">Consulta Médica</option>
+            <option value="Laboratorio">Laboratorio</option>
+            <option value="Farmacia">Farmacia</option>
+            <option value="Cirugía">Cirugía</option>
+            <option value="Odontología">Odontología</option>
+            <option value="Emergencia">Emergencia</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-date">Fecha</label>
+          <input type="date" id="edit-date" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="edit-description">Descripción</label>
+          <input type="text" id="edit-description" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-cost">Costo (RD$)</label>
+          <input type="number" id="edit-cost" step="0.01" required>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button onclick="cerrarModal()" class="btn-cancel">Cancelar</button>
+        <button onclick="guardarEdicion()" class="btn-green btn-modal-save">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/script.js"></script>
   <script>
-    // Inicializar sesión demo
-    document.addEventListener('DOMContentLoaded', function() {
+    // ===== ARRANQUE =====
+    document.addEventListener('DOMContentLoaded', function () {
       iniciarSesionDemo();
     });
 
@@ -148,114 +291,225 @@
         estado: 'Activo',
         fechaAfiliacion: '01/01/2023'
       };
-
       localStorage.setItem('usuarioActual', JSON.stringify(usuarioDemo));
       cargarDatosDemo(usuarioDemo);
-      cargarRegistros(usuarioDemo.id);
-      actualizarEstadisticas(usuarioDemo.id);
+      actualizarTodo(usuarioDemo.id);
     }
 
     function cargarDatosDemo(usuario) {
       document.getElementById('user-name').textContent = usuario.nombre;
+      document.getElementById('sidebar-user-name').textContent = usuario.nombre;
+      document.getElementById('sidebar-user-plan').textContent = usuario.plan;
+      const iniciales = usuario.nombre.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      document.getElementById('sidebar-avatar').textContent = iniciales;
       document.getElementById('dash-nombre').textContent = usuario.nombre;
       document.getElementById('dash-email').textContent = usuario.email;
       document.getElementById('dash-telefono').textContent = usuario.telefono;
       document.getElementById('dash-plan').textContent = usuario.plan;
       document.getElementById('dash-estado').textContent = usuario.estado;
       document.getElementById('dash-fecha').textContent = usuario.fechaAfiliacion;
+      document.getElementById('resumen-plan').textContent = usuario.plan;
     }
 
-    function cargarRegistros(usuarioId) {
-      const registros = JSON.parse(localStorage.getItem('registros') || '[]');
-      const registrosUsuario = registros.filter(r => r.usuarioId === usuarioId);
-      const container = document.getElementById('records-container');
+    // ===== ACTUALIZACIÓN GLOBAL =====
+    function actualizarTodo(usuarioId) {
+      cargarResumenEstadisticas(usuarioId);
+      cargarHistorial(usuarioId);
+    }
 
-      if (registrosUsuario.length === 0) {
-        container.innerHTML = '<p>No hay registros aún. Agrega uno para comenzar.</p>';
-        return;
+    // ===== RESUMEN DE ESTADÍSTICAS =====
+    function cargarResumenEstadisticas(usuarioId) {
+      const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+      const reg = registros.filter(r => r.usuarioId === usuarioId);
+      const total = reg.length;
+      const costoTotal = reg.reduce((s, r) => s + parseFloat(r.cost || 0), 0);
+      const promedio = total > 0 ? costoTotal / total : 0;
+
+      document.getElementById('resumen-registros').textContent = total;
+      document.getElementById('resumen-costo').textContent = 'RD$ ' + costoTotal.toFixed(2);
+      document.getElementById('resumen-promedio').textContent = 'RD$ ' + promedio.toFixed(2);
+
+      // Distribución por tipo
+      const chart = document.getElementById('stats-chart-container');
+      if (total === 0) {
+        chart.innerHTML = '<p class="empty-msg">No hay datos para mostrar.</p>';
+      } else {
+        const tipos = {};
+        reg.forEach(r => { tipos[r.type] = (tipos[r.type] || 0) + 1; });
+        chart.innerHTML = Object.entries(tipos).map(([tipo, count]) => {
+          const pct = Math.round((count / total) * 100);
+          return `
+            <div class="chart-bar-row">
+              <div class="chart-bar-label">${tipo}</div>
+              <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${pct}%"></div></div>
+              <div class="chart-bar-count">${count} (${pct}%)</div>
+            </div>`;
+        }).join('');
       }
 
-      container.innerHTML = registrosUsuario.map(record => `
-        <div class="record-item">
-          <div class="record-header">
-            <div class="record-type">${record.type}</div>
-            <div class="record-date">${record.date}</div>
-          </div>
-          <div class="record-description">${record.description}</div>
-          <div class="record-footer">
-            <div class="record-cost">RD$ ${parseFloat(record.cost).toFixed(2)}</div>
-            <button class="delete-btn" onclick="deleteRecord(${record.id})">Eliminar</button>
-          </div>
-        </div>
-      `).join('');
+      // Actividad reciente: últimos 3
+      const recientesEl = document.getElementById('resumen-recientes');
+      const recientes = [...reg].reverse().slice(0, 3);
+      recientesEl.innerHTML = recientes.length === 0
+        ? '<p class="empty-msg">No hay registros aún.</p>'
+        : recientes.map(r => `
+            <div class="record-item">
+              <div class="record-header">
+                <div class="record-type">${r.type}</div>
+                <div class="record-date">${r.date}</div>
+              </div>
+              <div class="record-description">${r.description}</div>
+              <div class="record-footer">
+                <div class="record-cost">RD$ ${parseFloat(r.cost).toFixed(2)}</div>
+              </div>
+            </div>`).join('');
     }
 
-    function actualizarEstadisticas(usuarioId) {
+    // ===== HISTORIAL MÉDICO CRUD =====
+    function cargarHistorial(usuarioId) {
+      const tipoFiltro = document.getElementById('historial-tipo')?.value || '';
       const registros = JSON.parse(localStorage.getItem('registros') || '[]');
-      const registrosUsuario = registros.filter(r => r.usuarioId === usuarioId);
+      let reg = registros.filter(r => r.usuarioId === usuarioId);
+      if (tipoFiltro) reg = reg.filter(r => r.type === tipoFiltro);
 
-      const totalRegistros = registrosUsuario.length;
-      const totalCosto = registrosUsuario.reduce((sum, r) => sum + parseFloat(r.cost), 0);
-      const promedioCosto = totalRegistros > 0 ? totalCosto / totalRegistros : 0;
+      const container = document.getElementById('historial-container');
+      if (!container) return;
 
-      document.getElementById('total-registros').textContent = totalRegistros;
-      document.getElementById('total-costo').textContent = 'RD$ ' + totalCosto.toFixed(2);
-      document.getElementById('promedio-costo').textContent = 'RD$ ' + promedioCosto.toFixed(2);
+      container.innerHTML = reg.length === 0
+        ? '<p class="empty-msg">No hay registros en el historial.</p>'
+        : [...reg].reverse().map(r => `
+            <div class="record-item">
+              <div class="record-header">
+                <div class="record-type">${r.type}</div>
+                <div class="record-date">${r.date}</div>
+              </div>
+              <div class="record-description">${r.description}</div>
+              <div class="record-footer">
+                <div class="record-cost">RD$ ${parseFloat(r.cost).toFixed(2)}</div>
+                <div class="record-actions">
+                  <button class="edit-btn" onclick="abrirEdicion(${r.id})">Editar</button>
+                  <button class="delete-btn" onclick="deleteRecord(${r.id})">Eliminar</button>
+                </div>
+              </div>
+            </div>`).join('');
     }
 
-    function handleAddRecord(event) {
-      event.preventDefault();
+    function filtrarHistorial() {
+      const u = JSON.parse(localStorage.getItem('usuarioActual') || '{}');
+      cargarHistorial(u.id);
+    }
 
-      const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual') || '{}');
-      const type = document.getElementById('record-type')?.value || '';
-      const date = document.getElementById('record-date')?.value || '';
-      const description = document.getElementById('record-description')?.value || '';
-      const cost = document.getElementById('record-cost')?.value || '';
+    // CRUD: Abrir modal edición
+    function abrirEdicion(recordId) {
+      const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+      const r = registros.find(x => x.id === recordId);
+      if (!r) return;
+      document.getElementById('edit-id').value = r.id;
+      document.getElementById('edit-type').value = r.type;
+      document.getElementById('edit-date').value = r.date;
+      document.getElementById('edit-description').value = r.description;
+      document.getElementById('edit-cost').value = r.cost;
+      document.getElementById('modal-overlay').classList.add('active');
+    }
 
+    function cerrarModal() {
+      document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    // CRUD: Guardar edición
+    function guardarEdicion() {
+      const id = parseInt(document.getElementById('edit-id').value);
+      const type = document.getElementById('edit-type').value;
+      const date = document.getElementById('edit-date').value;
+      const description = document.getElementById('edit-description').value;
+      const cost = document.getElementById('edit-cost').value;
       if (!type || !date || !description || !cost) {
         alert('Por favor completa todos los campos');
         return;
       }
-
-      const nuevoRegistro = {
-        id: Date.now(),
-        usuarioId: usuarioActual.id,
-        type,
-        date,
-        description,
-        cost
-      };
-
-      const registros = JSON.parse(localStorage.getItem('registros') || '[]');
-      registros.push(nuevoRegistro);
+      let registros = JSON.parse(localStorage.getItem('registros') || '[]');
+      registros = registros.map(r => r.id === id ? { ...r, type, date, description, cost } : r);
       localStorage.setItem('registros', JSON.stringify(registros));
+      cerrarModal();
+      const u = JSON.parse(localStorage.getItem('usuarioActual') || '{}');
+      actualizarTodo(u.id);
+    }
 
+    // CRUD: Agregar
+    function handleAddRecord(event) {
+      event.preventDefault();
+      const u = JSON.parse(localStorage.getItem('usuarioActual') || '{}');
+      const type        = document.getElementById('record-type')?.value || '';
+      const date        = document.getElementById('record-date')?.value || '';
+      const description = document.getElementById('record-description')?.value || '';
+      const cost        = document.getElementById('record-cost')?.value || '';
+      if (!type || !date || !description || !cost) {
+        alert('Por favor completa todos los campos');
+        return;
+      }
+      const nuevo = { id: Date.now(), usuarioId: u.id, type, date, description, cost };
+      const registros = JSON.parse(localStorage.getItem('registros') || '[]');
+      registros.push(nuevo);
+      localStorage.setItem('registros', JSON.stringify(registros));
       event.target.reset();
-      cargarRegistros(usuarioActual.id);
-      actualizarEstadisticas(usuarioActual.id);
+      actualizarTodo(u.id);
       alert('Registro agregado exitosamente');
     }
 
+    // CRUD: Eliminar
     function deleteRecord(recordId) {
-      if (!confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-        return;
-      }
-
+      if (!confirm('¿Estás seguro de que deseas eliminar este registro?')) return;
       let registros = JSON.parse(localStorage.getItem('registros') || '[]');
       registros = registros.filter(r => r.id !== recordId);
       localStorage.setItem('registros', JSON.stringify(registros));
-
-      const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual') || '{}');
-      cargarRegistros(usuarioActual.id);
-      actualizarEstadisticas(usuarioActual.id);
-      alert('Registro eliminado');
+      const u = JSON.parse(localStorage.getItem('usuarioActual') || '{}');
+      actualizarTodo(u.id);
     }
 
+    // ===== LOGOUT =====
     function handleLogout() {
       if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
         localStorage.removeItem('usuarioActual');
         window.location.href = 'index.html';
       }
+    }
+
+    // ===== SIDEBAR + NAVEGACIÓN DE SECCIONES =====
+    function showSection(sectionId, linkEl) {
+      document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('section-' + sectionId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      if (linkEl) linkEl.classList.add('active');
+
+      const subtitulos = {
+        'resumen-estadisticas': 'Resumen de estadísticas',
+        'agregar':              'Agregar nuevo registro',
+        'historial-medico':     'Historial médico completo',
+        'mis-datos':            'Información personal'
+      };
+      const el = document.getElementById('dashboard-subtitle');
+      if (el) el.textContent = subtitulos[sectionId] || '';
+
+      if (window.innerWidth <= 900) closeSidebar();
+      return false;
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      if (!sidebar) return;
+      sidebar.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('active');
+    }
+
+    function closeSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      if (!sidebar) return;
+      sidebar.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
     }
   </script>
 </body>
