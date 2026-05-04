@@ -381,6 +381,36 @@ body {
 }
 
 /* =====================
+   ESTILOS ESPECÍFICOS PARA SECCIÓN BUSCAR DOCTORES
+   ===================== */
+
+ .doctor-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  flex-wrap: wrap; 
+}
+
+.doctor-nombre {
+  color: #6a0dad;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.doctor-right {
+  text-align: right;
+}
+
+.badge-inactivo {
+  background-color: #edd4d4;
+  color: darkred;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* =====================
    DATA TABLE (Mis Datos)
    ===================== */
 .data-table {
